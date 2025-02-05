@@ -1,55 +1,33 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import { getAccessToken } from '@/store/Action/refreshAcessTokenAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import Spinner from '@/components/component/spinner';
-import { FetchSchemes } from '@/store/Action/fetchAllSchemsAction';
 import toast from 'react-hot-toast';
+
+import Spinner from '@/components/component/spinner';
+import { getAccessToken } from '@/store/Action/refreshAcessTokenAction';
 import { getAdminDetals } from '@/store/Action/getAdminDetailAction';
 
-async function fetchTokenAndCheckAuth(
-  dispatch,
-  loading,
-  success,
-  error,
-  path,
-  router,
-) {
+async function fetchTokenAndCheckAuth(dispatch) {
   await dispatch(getAccessToken());
 }
 
 export default function Check() {
   const dispatch = useDispatch();
-  const { loading, error, success } = useSelector(state => state.token); // Assuming the state slice is named 'token'
-  const { loading: fetchSchemesLoading } = useSelector(
-    state => state.fetchShemes,
-  );
-  const { loading: fetchProgramLoading } = useSelector(
-    state => state.fetchProgram,
-  );
-
-
-  const { loading: CreateSchemeLoader } = useSelector(
-    state => state.createScheme,
-  );
-  const { loading: updateManagerLoader } = useSelector(
-    state => state.updateManagerDetails,
-  );
-  const { loading: adminDetailLoading, success: adminDetailSuccess } = useSelector(
-    state => state.getAdminDetals,
-  )
-
   const path = usePathname();
   const router = useRouter();
-  let apiCall = 1;
-  const [prevPath, setprevPath] = useState('admin/dashboard');
-  //first visit check
+  
+  const { loading, error, success } = useSelector(state => state.token);
+  const { loading: adminDetailLoading, success: adminDetailSuccess } = useSelector(
+    state => state.getAdminDetals || {},
+  );
 
-  //first time to show loding only
+  const apiCall = useRef(1);
+  const [prevPath, setPrevPath] = useState('Founder/dashboard');
+
   useEffect(() => {
-    if (apiCall == 1 && success) {
+    if (apiCall.current === 1 && success) {
       dispatch(FetchSchemes());
     }
     if (success && !adminDetailSuccess) {
@@ -58,37 +36,30 @@ export default function Check() {
   }, [success]);
 
   useEffect(() => {
-    apiCall++;
-    fetchTokenAndCheckAuth(dispatch, loading, success, error, path, router);
+    apiCall.current++;
+    fetchTokenAndCheckAuth(dispatch);
 
     const interval = setInterval(() => {
-
-      fetchTokenAndCheckAuth(dispatch, loading, success, error, path, router);
+      fetchTokenAndCheckAuth(dispatch);
     }, 900000);
-
 
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     if (!loading) {
-      if (path != '/signin' && !success) {
+      if (path !== '/signin' && !success) {
         router.push('/signin');
       }
       if (path === '/signin' && success) {
-        router.push('/admin/dashboard');
+        router.push('/Founder/dashboard');
       }
     }
   }, [path, success, loading]);
 
   return (
     <>
-      {(loading ||
-        CreateSchemeLoader ||
-        fetchSchemesLoading ||
-        fetchProgramLoading ||
-        adminDetailLoading ||
-        updateManagerLoader) && <Spinner />}
+      {(loading || adminDetailLoading) && <Spinner />}
     </>
   );
 }

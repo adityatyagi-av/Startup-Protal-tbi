@@ -6,9 +6,8 @@ import { Refresh_Access_Token } from '../../../APiEndPoints/ApiEndPoints';
 export const getAccessToken = () => {
   return async dispatch => {
     console.log('action');
-    dispatch({ type: TYPES.Refresh_Access_Token }); // Set loading state to true
+    dispatch({ type: TYPES.Refresh_Access_Token }); 
 
-    // Fetch access and refresh tokens from local storage inside the action
 
     const refreshToken = localStorage.getItem('refreshTokenAdmin');
 
@@ -26,8 +25,8 @@ export const getAccessToken = () => {
         `${process.env.NEXT_PUBLIC_DATABASE_URL}${Refresh_Access_Token}`,
         {
           headers: {
-            // Send access token
-            Refresh: refreshToken, // Send refresh token
+           
+            Refresh: refreshToken, 
           },
           withCredentials: true,
         },
@@ -36,7 +35,6 @@ export const getAccessToken = () => {
       const success = response?.data?.success || false;
 
       if (success) {
-        // Update local storage with new tokens if present in response
         const newAccessToken = response.data.data.accessToken;
         const newRefreshToken = response.data.data.refreshToken;
 

@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         >
           {' '}
           {/* Use the correct Provider from react-redux */}
-          <Check></Check>
+          
           {children}
         </Provider>
       </body>

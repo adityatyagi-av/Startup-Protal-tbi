@@ -2,7 +2,6 @@ import { Input } from '@/components/ui/input';
 import { CiSearch } from 'react-icons/ci';
 import { Profile } from '../component/userProfile';
 import { StatsBar } from '../Statsbar';
-import { PopoverDemo } from '@/modals/Notification';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getAccessToken } from '@/store/Action/refreshAcessTokenAction';
@@ -15,9 +14,7 @@ export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const [greet, setGreet] = useState('Good morning');
-  const { loading: adminDetailLoading, success: adminDetailSuccess, data } = useSelector(
-    state => state.getAdminDetals,
-  )
+ 
   useEffect(() => {
     const currentTime = new Date();
     const hours = currentTime.getHours();
@@ -58,8 +55,8 @@ export const Nav = () => {
       <div className=" ml-[3%] hidden h-[40px] w-[30%] sm:block lg:w-[40%]">
         <div className="mt-[1%] flex items-center justify-between rounded-md">
           <div className="relative w-full rounded-md drop-shadow-md">
-            <span className="absolute inset-y-0 left-0 flex items-center rounded-md pl-3">
-              <CiSearch className="h-5 w-5 rounded-md bg-white text-gray-500" />
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3 rounded-md">
+              <CiSearch className="w-5 h-5 text-gray-500 bg-white rounded-md" />
             </span>
             <Input
               type="search"
@@ -71,7 +68,6 @@ export const Nav = () => {
       </div>
       <div className="flex ml-0 h-[60px]  w-full items-center   justify-end gap-[4%] pr-[4.4%] sm:w-[40%]">
         <div className="mt-[0.5%] flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-lg bg-white hover:bg-[#1E3A8A] hover:text-white sm:h-[50px] sm:w-[45px] sm:drop-shadow-md">
-          <PopoverDemo />
         </div>
         <div
           onClick={handleLogout}
@@ -84,11 +80,7 @@ export const Nav = () => {
         </div>
 
         {/* profile  */}
-        <Link href="/admin/profile">
-          <div className="ml-[1%] mt-[0.5%] flex h-[50px] w-[200px]  min-w-fit text-wrap">
-            <Profile imageurl={data?.avatar || '/photo.svg'} name={data?.firstName || 'admin'} />
-          </div>
-        </Link>
+       
 
         {/* Search Bar and Profile */}
       </div>

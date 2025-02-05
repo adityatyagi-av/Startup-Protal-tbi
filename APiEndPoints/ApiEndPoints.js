@@ -1,5 +1,5 @@
-export const Admin_Detail = '/admin/getdetail';
-export const Refresh_Access_Token = '/admin/refresh-accessToken';
+export const Founder_Detail = '/founder/getdetail';
+export const Refresh_Access_Token = '/founder/refresh-accessToken';
 export const FetchALl_Screening_Question =
   '/program/fetchschemequestions?filterStatus=0';
 export const Create_Scheme = '/program/createscheme';
@@ -21,16 +21,13 @@ export const DELETE_ANNOUNCEMENT = '/activity/deleteAnnouncements';
 export const FETCH_PANEL_MEMBER = '/evaluation/fetchPanelMembers';
 export const ADD_PANEL_MEMBER = '/evaluation/addPanelMemberToScheme';
 export const REMOVE_PANEL_MEMBER = '/evaluation/removePanelMemberFromScheme';
-export const CREATE_GUEST = '/evaluation/addGuest';
-export const FETCH_REGISTRATION = '/program/serveRegistrations'
 export const FETCH_STARTUP_DETAILS = '/startupReview/fetchRegistrationDetails'
 export const REQUEST_CHANGE_REGISTRATION ='/startupReview/requestChanges'
-export const GET_ADMIN_DETAILS = '/admin/getdetail'
+export const GET_ADMIN_DETAILS = '/founder/getdetail'
 export const EDIT_ADMIN_DETAIL='/admin/updateDetails'
 export const CHANGE_PASSWORD ='/admin/changepassword'
 export const FINAL_REVIEW ='/startupReview//finalReview'
 export const DELETE_CHANGES = '/startupReview/deleteRequestedChanges'
 export const DIRECT_REVIEW ='/startupReview/directReview'
 export const FETCH_EVALUATION_QUESTION = '/program/fetchEvaluationQuestions'
-export const ADD_EVALUATION_QUESTION = '/program/addEvaluationQuestions'
-export const REMOVE_EVALUATION_QUESTION = '/program/removeEvaluationQuestionFromScheme'
+

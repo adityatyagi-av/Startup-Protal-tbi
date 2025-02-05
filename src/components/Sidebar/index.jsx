@@ -8,10 +8,7 @@ import { useEffect } from 'react';
 
 export function Sidebar() {
 
-  const { loading: fetchSchemesLoading, data: Programs } = useSelector(
-    state => state.fetchShemes,
-  );
-
+  
 
   return (
     <div className="mx-[1%] flex h-auto flex-col items-start justify-start overflow-x-hidden overflow-y-hidden bg-[#FDFDFD]">
@@ -29,22 +26,22 @@ export function Sidebar() {
           imgSrc="/projects1.svg" // Default image
           hoverImgSrc="/projects.svg" // Image on hover
           label="Admin"
-          link="/admin/dashboard"
+          link="/Founder/dashboard"
         />
       </div>
 
       {/* Incubation */}
       <div className="mt-[10px] w-full">
         <SidebarItem
-          imgSrc="/projects1.svg" // Default image
-          hoverImgSrc="/projects.svg" // Image on hover
+          imgSrc="/projects1.svg" 
+          hoverImgSrc="/projects.svg" 
           label="Incubation"
           link="/admin/incubation"
         />
-        <div className="flex w-full flex-col justify-center">
+        <div className="flex flex-col justify-center w-full">
           <AdditionSidebarItem
-            imgSrc="/inactive.svg" // Default image
-            hoverImgSrc="/projects.svg" // Image on hover
+            imgSrc="/inactive.svg" 
+            hoverImgSrc="/projects.svg" 
             label="Facilites Requested"
             link="/admin/incubation/facilities"
           />
@@ -89,8 +86,8 @@ export function Sidebar() {
           label="Program"
           link="/admin/program"
         />
-        <div className="flex w-full flex-col justify-center">
-          {Programs.map((program, index) => (
+        <div className="flex flex-col justify-center w-full">
+          {/* {Programs.map((program, index) => (
 
             <AdditionSidebarItem
               key={index}
@@ -99,7 +96,7 @@ export function Sidebar() {
               label={program.schemeName}
               link={`/admin/program/${program.id}`}
             />
-          ))}
+          ))} */}
 
           {/* <AdditionSidebarItem
             imgSrc="/inactive.svg"  // Default image
@@ -136,7 +133,7 @@ export function Sidebar() {
           label="Investment"
           link="/admin"
         />
-        <div className="flex w-full flex-col justify-center">
+        <div className="flex flex-col justify-center w-full">
           <AdditionSidebarItem
             imgSrc="/inactive.svg" // Default image
             hoverImgSrc="/projects.svg" // Image on hover
