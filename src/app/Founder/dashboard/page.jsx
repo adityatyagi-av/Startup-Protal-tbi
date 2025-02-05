@@ -3,7 +3,7 @@ import { StatsBar } from '@/components/Statsbar';
 import { useSelector } from 'react-redux';
 import Spinner from '@/components/component/spinner';
 import { useDispatch } from 'react-redux';
-
+import Requestcards from '@/components/component/dashboardcards'
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -46,8 +46,8 @@ export default function Home() {
 
   return (
     <>
-     
-      <div className="flex flex-col w-full h-full">
+     <Requestcards/>
+      {/* <div className="flex flex-col w-full h-full">
         <div className="mb-[10px] flex h-[40px] w-full flex-row justify-start px-[2%] font-semibold">
           <button
             onClick={() => {
@@ -80,7 +80,9 @@ export default function Home() {
 
         <div className="h-[900px] w-full"></div>
         <div className="h-[900px] w-full"></div>
-      </div>
+      </div> */}
+
+      
     </>
   );
 }

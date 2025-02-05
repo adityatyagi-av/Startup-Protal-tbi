@@ -12,21 +12,19 @@ const requestCards = [
 
 export default function RequestCards() {
   return (
-    <div className="flex flex-wrap justify-center gap-6 p-6">
+    <div className="grid w-full grid-cols-1 gap-6 px-10 py-8 mx-auto sm:grid-cols-2 md:grid-cols-3 max-w-7xl">
       {requestCards.map((card, index) => (
         <div
           key={index}
-          className="flex flex-col justify-between h-40 p-6 transition-shadow duration-300 bg-white shadow-lg rounded-2xl w-72 hover:shadow-xl"
+          className="relative flex flex-col justify-between h-48 p-6 transition-shadow duration-300 bg-white shadow-md rounded-2xl hover:shadow-xl"
         >
           <div>
-            <h2 className="text-xl font-semibold text-blue-900">{card.title}</h2>
-            <p className="mt-2 text-sm text-gray-500">{card.description}</p>
+            <h2 className="text-2xl font-semibold text-blue-900">{card.title}</h2>
+            <p className="mt-2 text-base text-gray-500">{card.description}</p>
           </div>
-          <div className="self-end">
-            <button className="p-3 transition bg-gray-100 rounded-full shadow-md hover:bg-gray-200">
-              <FaArrowRight className="text-blue-900" />
-            </button>
-          </div>
+          <button className="absolute p-4 transition bg-gray-100 rounded-full shadow-md bottom-6 right-6 hover:bg-gray-200">
+            <FaArrowRight className="text-lg text-blue-900" />
+          </button>
         </div>
       ))}
     </div>

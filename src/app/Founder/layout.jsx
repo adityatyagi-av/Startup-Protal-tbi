@@ -28,7 +28,7 @@ export default function Layout({ children }) {
             <StatsBar />
 
           </div>
-          <Requestcards/>
+          
           {children}
         </div>
       </div>
