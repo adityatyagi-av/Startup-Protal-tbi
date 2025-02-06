@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import DocsubmitModal from "@/components/component/docsubmit";
 
 export default function DocumentRequest() {
   const documents = Array(10).fill({
@@ -22,7 +23,7 @@ export default function DocumentRequest() {
                 <th className="p-3">Requested DOC</th>
                 <th className="p-3">Date</th>
                 <th className="p-3">Uploaded doc</th>
-                <th className="flex justify-center p-3 ">Upload</th>
+                <th className="flex justify-center p-3">Upload</th>
               </tr>
             </thead>
             <tbody>
@@ -32,22 +33,17 @@ export default function DocumentRequest() {
                   <td className="p-3">{doc.name}</td>
                   <td className="p-3">{doc.date}</td>
                   <td className="p-3">{doc.uploaded}</td>
-                  <td className="flex justify-center p-6">
-                    <button className="justify-end w-56 py-2 text-sm text-white bg-blue-900 rounded-md hover:bg-blue-800">
-                      Upload Doc
-                    </button>
+                  <td className="flex justify-center p-3">
+                    <DocsubmitModal />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-        <div className="flex justify-end mt-4">
-         
-        </div>
       </div>
     </div>
   );
 }
+
 

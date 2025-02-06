@@ -80,9 +80,13 @@ export const Nav = () => {
         </div>
 
         {/* profile  */}
-       
+        <Link href="/Founder/profile">
+          <div className="ml-[2%] mt-[0.5%] flex h-[50px] w-fit text-wrap">
+            <Profile imageurl={'/photo.svg'} name={'Evan Ates'} />
+          </div>
+        </Link>
 
-        {/* Search Bar and Profile */}
+       
       </div>
     </div>
   );
