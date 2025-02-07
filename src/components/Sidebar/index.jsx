@@ -60,21 +60,21 @@ export function Sidebar() {
           <AdditionSidebarItem
             imgSrc="/inactive.svg"
             hoverImgSrc="/projects.svg"
-            label="Request Mentoring"
+            label="Requested History"
             link="/Founder/RequestedItems"
+          />
+           <AdditionSidebarItem
+            imgSrc="/inactive.svg"
+            hoverImgSrc="/projects.svg"
+            label="Report Mentoring"
+            link="/admin/incubation/reports"
           />
           {/* <AdditionSidebarItem
             imgSrc="/inactive.svg"
             hoverImgSrc="/projects.svg"
-            label="Reports"
-            link="/admin/incubation/reports"
-          />
-          <AdditionSidebarItem
-            imgSrc="/inactive.svg"
-            hoverImgSrc="/projects.svg"
             label="Manage Profiles"
             link="/admin/incubation/manage-profiles"
-          /> */}
+          />  */}
         </div>
       </div>
 

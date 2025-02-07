@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+
 export default function FundingRequest() {
   const [amount, setAmount] = useState("");
   const [reason, setReason] = useState("");
@@ -10,8 +11,8 @@ export default function FundingRequest() {
   };
 
   return (
-    <div className="flex w-full h-screen bg-gray-100 ">
-      <div className="w-screen h-screen p-10 bg-white rounded-lg shadow-lg">
+    <div className="flex h-screen max-w-6xl bg-gray-100 shadow-2xl">
+      <div className="w-full h-screen p-10 bg-white rounded-lg shadow-lg">
         <h1 className="mb-2 text-3xl font-semibold text-gray-800">Request Funding</h1>
         <p className="mb-6 text-gray-500">Request funding for your company</p>
 
@@ -22,7 +23,7 @@ export default function FundingRequest() {
             </label>
             <input
               type="text"
-              className="w-full p-4 text-lg border border-gray-300 rounded-lg h- focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full p-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Enter amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
@@ -49,9 +50,6 @@ export default function FundingRequest() {
           >
             Send Request
           </button>
-          <div>
-           
-          </div>
         </form>
       </div>
     </div>

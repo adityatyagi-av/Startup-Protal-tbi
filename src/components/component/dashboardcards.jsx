@@ -12,11 +12,11 @@ const requestCards = [
 
 export default function RequestCards() {
   return (
-    <div className="grid w-full grid-cols-1 gap-6 px-10 py-8 mx-auto sm:grid-cols-2 md:grid-cols-3 max-w-7xl">
+    <div className="grid w-full grid-cols-1 gap-6 px-6 py-2 mx-auto max-w-9xl sm:grid-cols-2 md:grid-cols-3">
       {requestCards.map((card, index) => (
         <div
           key={index}
-          className="relative flex flex-col justify-between h-48 p-6 transition-shadow duration-300 bg-white shadow-md rounded-2xl hover:shadow-xl"
+          className="relative flex flex-col justify-between p-6 transition-shadow duration-300 bg-white shadow-md h-60"
         >
           <div>
             <h2 className="text-2xl font-semibold text-blue-900">{card.title}</h2>
