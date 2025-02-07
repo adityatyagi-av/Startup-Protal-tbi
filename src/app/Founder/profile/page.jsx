@@ -11,73 +11,73 @@ export default function Profile() {
   const [profileImage, setProfileImage] = useState('/photo.svg');
   
   return (
-    <Card className="w-full max-w-3xl p-6 mx-auto mt-10 border rounded-lg shadow-lg">
+    <Card className="w-11/12 p-5 mx-auto mt-10 border rounded-lg shadow-lg">
       <CardHeader>
         <CardTitle>Profile</CardTitle>
       </CardHeader>
-      <CardContent className="flex gap-6">
-        <div className="flex flex-col items-center w-1/3">
-          <div className="relative w-24 h-24 mb-4">
+      <CardContent className="flex gap-12">
+        <div className="flex flex-col items-center w-1/4">
+          <div className="relative w-32 h-32 mb-6">
             <img
               src={profileImage}
               alt="Profile"
               className="object-cover w-full h-full border-4 border-blue-700 rounded-full"
             />
             <label htmlFor="imageUpload" className="absolute bottom-0 right-0 cursor-pointer">
-              <Camera className="w-8 h-8 p-1 text-gray-700 bg-white rounded-full" />
+              <Camera className="w-10 h-10 p-1 text-gray-700 bg-white rounded-full" />
             </label>
             <input id="imageUpload" type="file" className="hidden" accept="image/*" />
           </div>
         </div>
-        <div className="grid w-2/3 grid-cols-2 gap-4">
-          <div>
+        <div className="grid w-3/4 grid-cols-2 gap-6">
+          <div className="w-3/4 col-span-1">
             <Label>First name</Label>
-            <Input defaultValue="Adarsh" />
+            <Input className="w-full" defaultValue="Adarsh" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>Last name</Label>
-            <Input defaultValue="Sharma" />
+            <Input className="w-full" defaultValue="Sharma" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>Mentor name</Label>
-            <Input defaultValue="Abhishek Sharma" />
+            <Input className="w-full" defaultValue="Abhishek Sharma" />
           </div>
-          <div className="relative">
+          <div className="relative w-3/4 col-span-1">
             <Label>DOB</Label>
-            <Input type="date" placeholder="dd/mm/yyyy" />
-            <Calendar className="absolute w-5 h-5 text-gray-400 right-3 top-9" />
+            <Input className="w-full" type="date" placeholder="dd/mm/yyyy" />
+            <Calendar className="absolute w-6 h-6 text-gray-400 right-4 top-9" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>Phone</Label>
-            <Input placeholder="XXXXXXXXXX" />
+            <Input className="w-full" placeholder="XXXXXXXXXX" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>Email</Label>
-            <Input placeholder="XXXXXXXXXX" />
+            <Input className="w-full" placeholder="XXXXXXXXXX" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>Country</Label>
-            <Input placeholder="Enter" />
+            <Input className="w-full" placeholder="Enter" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>City</Label>
-            <Input placeholder="Enter" />
+            <Input className="w-full" placeholder="Enter" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>Total funding received</Label>
-            <Input defaultValue="₹ 3000000" />
+            <Input className="w-full" defaultValue="₹ 3000000" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>Total Startup members</Label>
-            <Input defaultValue="23" />
+            <Input className="w-full" defaultValue="23" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>Startup status</Label>
-            <Input defaultValue="Small scale" />
+            <Input className="w-full" defaultValue="Small scale" />
           </div>
-          <div>
+          <div className="w-3/4 col-span-1">
             <Label>Password</Label>
-            <Input type="password" placeholder="Enter" />
+            <Input className="w-full" type="password" placeholder="Enter" />
           </div>
         </div>
       </CardContent>
