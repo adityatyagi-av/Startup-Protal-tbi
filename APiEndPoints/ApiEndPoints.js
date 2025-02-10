@@ -1,5 +1,6 @@
 export const Founder_Detail = '/founder/getdetail';
 export const Refresh_Access_Token = '/founder/refresh-accessToken';
+export const Founder_Resource = '/founder/requestResources'
 export const FetchALl_Screening_Question =
   '/program/fetchschemequestions?filterStatus=0';
 export const Create_Scheme = '/program/createscheme';

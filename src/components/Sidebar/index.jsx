@@ -67,7 +67,7 @@ export function Sidebar() {
             imgSrc="/inactive.svg"
             hoverImgSrc="/projects.svg"
             label="Report Mentoring"
-            link="/admin/incubation/reports"
+            link="/Founder/RequestMentoring"
           />
           {/* <AdditionSidebarItem
             imgSrc="/inactive.svg"

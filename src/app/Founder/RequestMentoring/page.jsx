@@ -25,10 +25,9 @@ export default function MentoringRequests() {
 
   return (
     <div className="container max-w-6xl mx-auto mt-1 bg-white rounded-lg shadow-2xl">
-      <h1 className="mb-2 text-2xl font-semibold text-gray-800 ">Request Mentoring</h1>
-      <p className="mb-6 text-gray-500">Request for 1:1 mentoring session</p>
+      <h1 className="px-6 py-2 mb-2 text-2xl font-semibold text-gray-800 ">Request Mentoring</h1>
 
-      <div className="overflow-x-auto">
+      <div className="px-24 overflow-x-auto">
         <table className="w-full border border-collapse border-gray-300">
           <thead>
             <tr className="text-gray-700 bg-gray-100">
@@ -68,8 +67,3 @@ export default function MentoringRequests() {
     </div>
   );
 }
-//shadow to some ui's 
-//routing.
-//dropazone.
-//major changes. 
-//---integration api.
