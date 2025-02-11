@@ -34,4 +34,20 @@ const getResourceReducer = (state = initialState, action) => {
   }
 };
 
-export default getResourceReducer;
+const requestResourceReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case TYPES.REQUEST_RESOURCE_LOADING:
+      return { ...state, loading: true, success: false, error: null };
+
+    case TYPES.REQUEST_RESOURCE_SUCCESS:
+      return { ...state, loading: false, success: true, error: null };
+
+    case TYPES.REQUEST_RESOURCE_FAILURE:
+      return { ...state, loading: false, success: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export {getResourceReducer , requestResourceReducer};

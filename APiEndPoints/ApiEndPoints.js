@@ -31,4 +31,5 @@ export const FINAL_REVIEW ='/startupReview//finalReview'
 export const DELETE_CHANGES = '/startupReview/deleteRequestedChanges'
 export const DIRECT_REVIEW ='/startupReview/directReview'
 export const FETCH_EVALUATION_QUESTION = '/program/fetchEvaluationQuestions'
+export const Resource_Detail ='/startup/fetchAllResources'
 

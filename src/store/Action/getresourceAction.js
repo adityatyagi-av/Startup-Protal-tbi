@@ -2,14 +2,15 @@
 import axios from 'axios';
 import TYPES from '../constant';
 import { Resource_Detail } from '../../../APiEndPoints/ApiEndPoints';
-
+import { getHeaders } from '@/utils/authHeaders';
+import toast from 'react-hot-toast';
 export const getResourceDetails = () => {
   return async dispatch => {
     try {
       dispatch({ type: TYPES.Resource_Detail });
 
-      const refreshToken = localStorage.getItem('refreshTokenAdmin');
-      const accessToken = localStorage.getItem('accessTokenAdmin');
+      const refreshToken = localStorage.getItem('refreshTokenFounder');
+      const accessToken = localStorage.getItem('accessTokenFounder');
 
       if (!refreshToken || !accessToken) {
         console.log('Tokens missing in localStorage');
@@ -53,6 +54,41 @@ export const getResourceDetails = () => {
         type: TYPES.Resource_Detail_FAILURE,
         payload: error.response?.data?.message || error.message,
       });
+    }
+  };
+};
+export const requestResource = (resourceId, requestedQuantity) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: TYPES.REQUEST_RESOURCE_LOADING });
+
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/startup/requestResources`,
+        { resourceId, 
+          requestedQuantity 
+        },
+        {
+          headers: getHeaders(),
+          withCredentials: true,
+        }
+      );
+
+      if (response?.data?.success) {
+        dispatch({ type: TYPES.REQUEST_RESOURCE_SUCCESS });
+        toast.success("Resource request submitted successfully!");
+      } else {
+        dispatch({
+          type: TYPES.REQUEST_RESOURCE_FAILURE,
+          payload: response?.data?.message,
+        });
+        toast.error(response?.data?.message || "Failed to request resource");
+      }
+    } catch (error) {
+      dispatch({
+        type: TYPES.REQUEST_RESOURCE_FAILURE,
+        payload: error?.message,
+      });
+      toast.error(error?.message || "Error occurred while requesting resource");
     }
   };
 };

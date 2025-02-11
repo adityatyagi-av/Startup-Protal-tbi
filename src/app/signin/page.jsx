@@ -36,7 +36,7 @@ export default function SignIn() {
       const url = process.env.NEXT_PUBLIC_DATABASE_URL;
 
       const response = await axios.post(
-        `${url}/admin/login`,
+        `${url}/founder/login`,
         {
           email,
           password: encryptedPassword,
@@ -46,18 +46,18 @@ export default function SignIn() {
 
       if (response.data.statusCode === 200) {
         await localStorage.setItem(
-          'accessTokenAdmin',
+          'accessTokenFounder',
           response.data.data.accessToken,
         );
         await localStorage.setItem(
-          'refreshTokenAdmin',
+          'refreshTokenFounder',
           response.data.data.refreshToken,
         );
         toast.success('successfully logged in');
         await dispatch(getAccessToken());
 
         setTimeout(() => {
-          router.push('/admin/dashboard');
+          router.push('/founder/dashboard');
         }, 4000);
       }
       else {
