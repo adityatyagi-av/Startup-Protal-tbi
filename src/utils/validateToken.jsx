@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 import Spinner from '@/components/component/spinner';
 import { getAccessToken } from '@/store/Action/refreshAcessTokenAction';
-import { getAdminDetals } from '@/store/Action/getAdminDetailAction';
+import { getFounderDetails } from '@/store/Action/getFounderDetailAction';
 
 async function fetchTokenAndCheckAuth(dispatch) {
   await dispatch(getAccessToken());
@@ -31,7 +31,7 @@ export default function Check() {
       dispatch(FetchSchemes());
     }
     if (success && !adminDetailSuccess) {
-      dispatch(getAdminDetals());
+      dispatch(getFounderDetails());
     }
   }, [success]);
 

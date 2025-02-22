@@ -57,7 +57,7 @@ export default function SignIn() {
         await dispatch(getAccessToken());
 
         setTimeout(() => {
-          router.push('/founder/dashboard');
+          router.push('/Founder/dashboard');
         }, 4000);
       }
       else {
@@ -79,18 +79,18 @@ export default function SignIn() {
     <div className="flex h-screen w-screen bg-back-rgba p-2 text-[#1b1b1b}">
       <div className="relative flex h-full w-full flex-col items-center justify-center rounded-none bg-white p-4 md:w-[45%] md:items-start md:rounded-l-3xl md:bg-inner-rgba md:bg-transparent md:p-6 lg:p-12">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50 md:hidden"
+          className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-50 md:hidden"
           style={{ backgroundImage: "url('/login.png')" }}
         ></div>
-        <div className="relative z-10 mx-auto flex w-full max-w-md flex-col items-center md:items-start">
-          <div className="mb-6 flex gap-4 md:mb-10">
+        <div className="relative z-10 flex flex-col items-center w-full max-w-md mx-auto md:items-start">
+          <div className="flex gap-4 mb-6 md:mb-10">
             <img
-              className="h-10 w-10 md:h-16 md:w-16"
+              className="w-10 h-10 md:h-16 md:w-16"
               src="/kiet.svg"
               alt="Logo 1"
             />
             <img
-              className="h-10 w-10 md:h-16 md:w-16"
+              className="w-10 h-10 md:h-16 md:w-16"
               src="/image3.png"
               alt="Logo 2"
             />
@@ -102,15 +102,15 @@ export default function SignIn() {
             Kindly fill in your details to sign in to your account
           </p>
           <form
-            className="flex w-full flex-col px-2 md:px-0"
+            className="flex flex-col w-full px-2 md:px-0"
             onSubmit={handleSubmit}
           >
-            <label className="text-txt-rgba mb-2 text-xs font-medium md:text-base">
-              Email Address <span className=' text-red-500'>*</span>
+            <label className="mb-2 text-xs font-medium text-txt-rgba md:text-base">
+              Email Address <span className='text-red-500 '>*</span>
             </label>
             <input
               type="text"
-              className="bg-input-rgba border-brdr-rgba text-brdr-rgba mb-1 h-10 w-full rounded-lg border pl-4 md:h-12"
+              className="w-full h-10 pl-4 mb-1 border rounded-lg bg-input-rgba border-brdr-rgba text-brdr-rgba md:h-12"
               placeholder="Enter your Email"
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -121,13 +121,13 @@ export default function SignIn() {
               </p>
             )}
 
-            <label className="text-txt-rgba mb-1 mb-2 mt-6 text-xs font-medium md:text-base">
-              Password<span className=' text-red-500'> *</span>
+            <label className="mt-6 mb-1 mb-2 text-xs font-medium text-txt-rgba md:text-base">
+              Password<span className='text-red-500 '> *</span>
             </label>
-            <div className="relative mb-1 w-full">
+            <div className="relative w-full mb-1">
               <input
                 type={showPassword ? 'text' : 'password'}
-                className="bg-input-rgba border-brdr-rgba text-brdr-rgba h-10 w-full rounded-lg border pl-4 pr-10 md:h-12"
+                className="w-full h-10 pl-4 pr-10 border rounded-lg bg-input-rgba border-brdr-rgba text-brdr-rgba md:h-12"
                 placeholder="Enter your Password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
@@ -149,7 +149,7 @@ export default function SignIn() {
               {isLoading ? (
                 <span className="flex items-center justify-center">
                   <svg
-                    className="mr-2 h-5 w-5 animate-spin text-white"
+                    className="w-5 h-5 mr-2 text-white animate-spin"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -178,12 +178,12 @@ export default function SignIn() {
         </div>
       </div>
       <div className="hidden h-full w-[50%] flex-col items-center justify-center rounded-r-3xl bg-blue-rgba md:flex">
-        <h2 className="text-3xl font-bold text-white md:mb-6 md:text-4xl text-center">
+        <h2 className="text-3xl font-bold text-center text-white md:mb-6 md:text-4xl">
           Empowering Startups with Mentors. Resources. Investments.
         </h2>
         <img
           src="/login.png"
-          className="max-w-xs lg:max-w-md mt-6"
+          className="max-w-xs mt-6 lg:max-w-md"
           alt="Sign In Visual"
         />
       </div>

@@ -1,10 +1,9 @@
 'use client';
 import axios from 'axios';
 import TYPES from '../constant';
-import { Resource_Detail } from '../../../APiEndPoints/ApiEndPoints';
+import { FETCH_ALL_MENTORS } from '../../../APiEndPoints/ApiEndPoints';
 import { getHeaders } from '@/utils/authHeaders';
 import toast from 'react-hot-toast';
-
 
 const getTokens = () => {
   if (typeof window !== 'undefined') {
@@ -16,24 +15,24 @@ const getTokens = () => {
   return { refreshToken: null, accessToken: null };
 };
 
-// Fetch Resource Details
-export const getResourceDetails = () => {
-  return async (dispatch) => {
+// Fetch All Mentors
+export const fetchAllMentors = () => {
+  return async dispatch => {
     try {
-      dispatch({ type: TYPES.Resource_Detail });
+      dispatch({ type: TYPES.FETCH_ALL_MENTORS_LOADING });
 
       const { refreshToken, accessToken } = getTokens();
 
       if (!refreshToken || !accessToken) {
         console.warn('Tokens missing in localStorage');
         return dispatch({
-          type: TYPES.Resource_Detail_FAILURE,
+          type: TYPES.FETCH_ALL_MENTORS_FAILURE,
           payload: 'Authentication tokens are missing.',
         });
       }
 
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}${Resource_Detail}`,
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/startup/fetchAllMentors`,
         {
           headers: {
             Refresh: refreshToken,
@@ -45,34 +44,35 @@ export const getResourceDetails = () => {
 
       if (Boolean(response?.data?.success)) {
         dispatch({
-          type: TYPES.Resource_Detail_SUCCESS,
+          type: TYPES.FETCH_ALL_MENTORS_SUCCESS,
           payload: response.data.data,
         });
       } else {
         dispatch({
-          type: TYPES.Resource_Detail_FAILURE,
-          payload: response?.data?.message || 'Failed to fetch resource details.',
+          type: TYPES.FETCH_ALL_MENTORS_FAILURE,
+          payload: response?.data?.message || 'Failed to fetch mentors.',
         });
       }
     } catch (error) {
       console.error('API Error:', error);
       dispatch({
-        type: TYPES.Resource_Detail_FAILURE,
+        type: TYPES.FETCH_ALL_MENTORS_FAILURE,
         payload: error?.response?.data?.message || 'An error occurred.',
       });
     }
   };
 };
 
-
-export const requestResource = (resourceId, requestedQuantity) => {
-  return async (dispatch) => {
+export const requestMentor = (mentorId) => {
+  return async dispatch => {
     try {
-      dispatch({ type: TYPES.REQUEST_RESOURCE_LOADING });
+      dispatch({ type: TYPES.REQUEST_MENTOR_LOADING });
+      
+      const currentDate = new Date().toISOString().split('T')[0];
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/startup/requestResources`,
-        { resourceId, requestedQuantity },
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/startup/requestMentorSession`,
+        { mentorId, date: currentDate }, // ✅ Sending both mentorId and date
         {
           headers: getHeaders(),
           withCredentials: true,
@@ -80,17 +80,29 @@ export const requestResource = (resourceId, requestedQuantity) => {
       );
 
       if (Boolean(response?.data?.success)) {
-        dispatch({ type: TYPES.REQUEST_RESOURCE_SUCCESS });
-        toast.success('Resource request submitted successfully!');
+        dispatch({ type: TYPES.REQUEST_MENTOR_SUCCESS });
+        toast.success('Mentor request submitted successfully!');
       } else {
-        const errorMessage = response?.data?.message || 'Failed to request resource';
-        dispatch({ type: TYPES.REQUEST_RESOURCE_FAILURE, payload: errorMessage });
+        const errorMessage = response?.data?.message || 'Failed to request mentor';
+        dispatch({ type: TYPES.REQUEST_MENTOR_FAILURE, payload: errorMessage });
         toast.error(errorMessage);
       }
     } catch (error) {
-      const errorMessage = error?.response?.data?.message || 'An error occurred while requesting the resource.';
-      dispatch({ type: TYPES.REQUEST_RESOURCE_FAILURE, payload: errorMessage });
+      const errorMessage = error?.response?.data?.message || 'An error occurred while requesting a mentor.';
+      dispatch({ type: TYPES.REQUEST_MENTOR_FAILURE, payload: errorMessage });
       toast.error(errorMessage);
     }
   };
 };
+
+
+
+
+
+
+
+
+
+
+
+

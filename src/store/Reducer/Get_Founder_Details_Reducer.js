@@ -1,4 +1,5 @@
 import TYPES from '../constant';
+
 const initialState = {
   loading: false,
   data: [],
@@ -6,22 +7,22 @@ const initialState = {
   success: false,
 };
 
-const getAdminDetalsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case TYPES.Admin_Detail:
+const getFounderDetalsReducer = (state = initialState, action) => {
+  switch (action.type) {  
+    case TYPES.Founder_Detail:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case TYPES.Admin_Detail_SUCCESS:
+    case TYPES.Founder_Detail_SUCCESS:
       return {
         ...state,
         loading: false,
         data: action.payload,
         success: true,
       };
-    case TYPES.Admin_Detail_FAILURE:
+    case TYPES.Founder_Detail_FAILURE:
       return {
         ...state,
         loading: false,
@@ -33,4 +34,4 @@ const getAdminDetalsReducer = (state = initialState, action) => {
   }
 };
 
-export default getAdminDetalsReducer;
+export default getFounderDetalsReducer;

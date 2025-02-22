@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 
-export default function MyDropzone({
+export default function MyDropzonesingle({
     file,
     setFile,
     className = '',
@@ -122,3 +122,4 @@ export default function MyDropzone({
         </>
     );
 }
+

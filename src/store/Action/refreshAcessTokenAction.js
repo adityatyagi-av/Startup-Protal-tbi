@@ -9,7 +9,7 @@ export const getAccessToken = () => {
     dispatch({ type: TYPES.Refresh_Access_Token }); 
 
 
-    const refreshToken = localStorage.getItem('refreshTokenAdmin');
+    const refreshToken = localStorage.getItem('refreshTokenFounder');
 
     if (!refreshToken) {
       console.log('local storage empty');
@@ -38,8 +38,8 @@ export const getAccessToken = () => {
         const newAccessToken = response.data.data.accessToken;
         const newRefreshToken = response.data.data.refreshToken;
 
-        localStorage.setItem('accessTokenAdmin', newAccessToken);
-        localStorage.setItem('refreshTokenAdmin', newRefreshToken);
+        localStorage.setItem('accessTokenFounder', newAccessToken);
+        localStorage.setItem('refreshTokenFounder', newRefreshToken);
 
         dispatch({
           type: TYPES.Refresh_Access_Token_SUCCESS,

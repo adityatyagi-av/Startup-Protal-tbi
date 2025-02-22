@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 import localFont from 'next/font/local';
 import './globals.css';
 import toast, { Toaster } from 'react-hot-toast';
-import { Provider } from 'react-redux'; // Import Provider from react-redux
+import { Provider } from 'react-redux';
 import store from '@/store/store';
 import Check from '@/utils/validateToken';
 
@@ -29,8 +29,9 @@ export default function RootLayout({ children }) {
           store={store}
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+          <Check></Check>
           {' '}
-          {/* Use the correct Provider from react-redux */}
+          
           
           {children}
         </Provider>

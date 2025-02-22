@@ -1,9 +1,8 @@
-'use client';
 import axios from 'axios';
 import TYPES from '../constant';
-import { Founder_Detail, Founder_Detail } from '../../../APiEndPoints/ApiEndPoints';
+import { Founder_Detail } from '../../../APiEndPoints/ApiEndPoints';
 
-export const getFounderDetals = () => {
+export const getFounderDetails = () => {
   return async dispatch => {
     try {
       dispatch({ type: TYPES.Founder_Detail });
@@ -20,8 +19,6 @@ export const getFounderDetals = () => {
         return;
       }
 
-      // Indicate loading state
-
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}${Founder_Detail}?schemeName=allSchemes`,
         {
@@ -30,7 +27,7 @@ export const getFounderDetals = () => {
             Access: accessToken,
           },
           withCredentials: true,
-        },
+        }
       );
 
       const success = response?.data?.success || false;

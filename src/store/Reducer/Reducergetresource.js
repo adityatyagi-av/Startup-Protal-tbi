@@ -1,4 +1,4 @@
-import TYPES from '../constant';
+import TYPES from '../constant.js'
 
 const initialState = {
   loading: false,
@@ -7,32 +7,23 @@ const initialState = {
   success: false,
 };
 
+// Resource Details Reducer
 const getResourceReducer = (state = initialState, action) => {
   switch (action.type) {
     case TYPES.Resource_Detail:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
+      return { ...state, loading: true, error: null, success: false };
+
     case TYPES.Resource_Detail_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: action.payload,
-        success: true,
-      };
+      return { ...state, loading: false, data: action.payload, success: true };
+
     case TYPES.Resource_Detail_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-        success: false,
-      };
+      return { ...state, loading: false, error: action.payload, success: false };
+
     default:
       return state;
   }
 };
+
 
 const requestResourceReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -50,4 +41,4 @@ const requestResourceReducer = (state = initialState, action) => {
   }
 };
 
-export {getResourceReducer , requestResourceReducer};
+export { getResourceReducer, requestResourceReducer };

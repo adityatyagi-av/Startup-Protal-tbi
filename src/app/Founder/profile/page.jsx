@@ -1,6 +1,8 @@
 'use client';
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getFounderDetails } from '@/store/Action/getFounderDetailAction';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,8 +10,20 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Calendar, Camera } from 'lucide-react';
 
 export default function Profile() {
+  const dispatch = useDispatch();
+  const { data, loading } = useSelector(state => state.founderDetails);
   const [profileImage, setProfileImage] = useState('/photo.svg');
-  
+
+  useEffect(() => {
+    dispatch(getFounderDetails());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (data) {
+      setProfileImage(data.avatar || '/photo.svg');
+    }
+  }, [data]);
+
   return (
     <Card className="w-11/12 p-5 mx-auto mt-10 border rounded-lg shadow-lg">
       <CardHeader>
@@ -31,53 +45,37 @@ export default function Profile() {
         </div>
         <div className="grid w-3/4 grid-cols-2 gap-6">
           <div className="w-3/4 col-span-1">
-            <Label>First name</Label>
-            <Input className="w-full" defaultValue="Adarsh" />
+            <Label>Full Name</Label>
+            <Input className="w-full" value={data?.name || ''} readOnly />
           </div>
           <div className="w-3/4 col-span-1">
-            <Label>Last name</Label>
-            <Input className="w-full" defaultValue="Sharma" />
-          </div>
-          <div className="w-3/4 col-span-1">
-            <Label>Mentor name</Label>
-            <Input className="w-full" defaultValue="Abhishek Sharma" />
-          </div>
-          <div className="relative w-3/4 col-span-1">
-            <Label>DOB</Label>
-            <Input className="w-full" type="date" placeholder="dd/mm/yyyy" />
-            <Calendar className="absolute w-6 h-6 text-gray-400 right-4 top-9" />
-          </div>
-          <div className="w-3/4 col-span-1">
-            <Label>Phone</Label>
-            <Input className="w-full" placeholder="XXXXXXXXXX" />
+            <Label>Username</Label>
+            <Input className="w-full" value={data?.username || ''} readOnly />
           </div>
           <div className="w-3/4 col-span-1">
             <Label>Email</Label>
-            <Input className="w-full" placeholder="XXXXXXXXXX" />
+            <Input className="w-full" value={data?.email || ''} readOnly />
           </div>
           <div className="w-3/4 col-span-1">
-            <Label>Country</Label>
-            <Input className="w-full" placeholder="Enter" />
+            <Label>Phone</Label>
+            <Input className="w-full" value={data?.phone || ''} readOnly />
+          </div>
+          <div className="relative w-3/4 col-span-1">
+            <Label>DOB</Label>
+            <Input className="w-full" type="date" value={data?.DOB?.split('T')[0] || ''} readOnly />
+            <Calendar className="absolute w-6 h-6 text-gray-400 right-4 top-9" />
           </div>
           <div className="w-3/4 col-span-1">
-            <Label>City</Label>
-            <Input className="w-full" placeholder="Enter" />
+            <Label>Postal Address</Label>
+            <Input className="w-full" value={data?.postalAddress || ''} readOnly />
           </div>
           <div className="w-3/4 col-span-1">
-            <Label>Total funding received</Label>
-            <Input className="w-full" defaultValue="₹ 3000000" />
+            <Label>Education</Label>
+            <Input className="w-full" value={data?.education || ''} readOnly />
           </div>
           <div className="w-3/4 col-span-1">
-            <Label>Total Startup members</Label>
-            <Input className="w-full" defaultValue="23" />
-          </div>
-          <div className="w-3/4 col-span-1">
-            <Label>Startup status</Label>
-            <Input className="w-full" defaultValue="Small scale" />
-          </div>
-          <div className="w-3/4 col-span-1">
-            <Label>Password</Label>
-            <Input className="w-full" type="password" placeholder="Enter" />
+            <Label>Experience</Label>
+            <Input className="w-full" value={data?.experience || ''} readOnly />
           </div>
         </div>
       </CardContent>
@@ -86,7 +84,8 @@ export default function Profile() {
         <Button className="bg-blue-900">Edit</Button>
       </CardFooter>
       <p className="mt-4 text-sm text-center text-gray-500">
-        Created at 19 Nov, 2024 | 1:00 AM <br /> Updated at 20 Nov, 2024 | 11:00 AM
+        Created at {new Date(data?.createdAt).toLocaleString() || 'N/A'} <br /> 
+        Updated at {new Date(data?.updatedAt).toLocaleString() || 'N/A'}
       </p>
     </Card>
   );

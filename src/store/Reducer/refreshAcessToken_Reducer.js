@@ -1,4 +1,4 @@
-// reducer.js
+
 import TYPES from '../constant';
 
 const initialState = {
