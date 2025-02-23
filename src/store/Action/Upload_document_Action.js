@@ -20,7 +20,7 @@ export const uploadDoc = (file, docId) => {
       dispatch({ type: TYPES.UPLOAD_DOC_REQUEST });
 
       const formData = new FormData();
-      formData.append("document", file);
+      formData.append("doc", file);
       formData.append("docId", docId); // Adding document ID to the form data
 
       const response = await axios.post(

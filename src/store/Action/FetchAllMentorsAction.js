@@ -80,7 +80,10 @@ export const requestMentor = (mentorId) => {
       );
 
       if (Boolean(response?.data?.success)) {
-        dispatch({ type: TYPES.REQUEST_MENTOR_SUCCESS });
+        dispatch({ type: TYPES.REQUEST_MENTOR_SUCCESS 
+          
+
+        });
         toast.success('Mentor request submitted successfully!');
       } else {
         const errorMessage = response?.data?.message || 'Failed to request mentor';

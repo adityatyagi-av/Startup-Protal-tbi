@@ -41,6 +41,7 @@ export const fetchAllMentorshipRequests = () => {
       );
 
       if (Boolean(response?.data?.success)) {
+        console.log(response.data.data);
         dispatch({
           type: TYPES.FETCH_ALL_MENTORSHIP_REQUESTS_SUCCESS,
           payload: response.data.data,

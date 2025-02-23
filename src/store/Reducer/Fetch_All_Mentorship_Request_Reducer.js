@@ -17,7 +17,7 @@ const fetchAllMentorshipRequestsReducer = (state = initialState, action) => {
     case TYPES.FETCH_ALL_MENTORSHIP_REQUESTS_SUCCESS:
       return {
         ...state,
-        mentorshipRequests: action.payload,
+        mentors: action.payload,
         loading: false,
         error: null,
       };
