@@ -1,5 +1,5 @@
 'use client'
-export default function RequestedItems({ items }) {
+ function RequestedItems({ items }) {
     const getStatusClass = (status) => ({
       approved: "text-green-600",
       pending: "text-yellow-600",
@@ -18,8 +18,8 @@ export default function RequestedItems({ items }) {
             </tr>
           </thead>
           <tbody>
-            {items.length > 0 ? (
-              items.map(({ requestedItem, date, status }, index) => (
+            {items && items?.length > 0 ? (
+              items?.map(({ requestedItem, date, status }, index) => (
                 <tr key={index} className="border-b hover:bg-gray-100">
                   <td className="p-4">{index + 1}</td>
                   <td className="p-4">{requestedItem || "N/A"}</td>
@@ -39,4 +39,4 @@ export default function RequestedItems({ items }) {
       </div>
     );
   }
-  
+  export default RequestedItems;

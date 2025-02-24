@@ -18,7 +18,7 @@ export default function RequestedMentors({ mentors }) {
             </tr>
           </thead>
           <tbody>
-            {mentors.length > 0 ? (
+            {mentors && mentors?.length > 0 ? (
               mentors.map(({ mentorName, date, status }, index) => (
                 <tr key={index} className="border-b hover:bg-gray-100">
                   <td className="p-4">{index + 1}</td>
