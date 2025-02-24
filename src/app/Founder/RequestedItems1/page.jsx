@@ -1,5 +1,5 @@
 'use client'
-export default function RequestedItems({ items }) {
+ function RequestedItems({ items }) {
     const getStatusClass = (status) => ({
       approved: "text-green-600",
       pending: "text-yellow-600",
@@ -39,4 +39,4 @@ export default function RequestedItems({ items }) {
       </div>
     );
   }
-  
+  export default RequestedItems;
