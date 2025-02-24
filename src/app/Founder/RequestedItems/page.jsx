@@ -12,7 +12,7 @@ export default function RequestTable() {
   const [activeTab, setActiveTab] = useState("Requested Item");
   const dispatch = useDispatch();
 
-  // Fetch Redux State
+  
   const { requests = [], loading: requestsLoading, error: requestsError } = useSelector((state) => state.requestData || {});
   const { mentors = [], loading: mentorshipLoading, error: mentorshipError } = useSelector((state) => state.mentorshipRequests);
   const { officeSpaceData, loading: officespaceloading, error: officespaceError } = useSelector((state) => state.requestOfficeSpace);
@@ -23,13 +23,13 @@ export default function RequestTable() {
     dispatch(requestOfficeSpace({ date: new Date().toISOString() }));
   }, [dispatch]);
 
-  // Ensure officeSpaceData is an array
+
   const officeSpaceArray = Array.isArray(officeSpaceData) ? officeSpaceData : [officeSpaceData];
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen p-6 bg-gray-50">
       <div className="w-full max-w-6xl p-6 bg-white rounded-lg shadow-lg">
-        {/* Tabs */}
+    
         <div className="flex justify-center mb-6">
           {["Requested Item", "Requested Doc", "Requested Mentors"].map((tab) => (
             <button

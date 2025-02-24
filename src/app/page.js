@@ -11,7 +11,7 @@ const TestPage = () => {
 
 
   useEffect(() => {
-     router.push("/Founder/dashboard")
+     router.push("/signin")
   }, []);
 
   
