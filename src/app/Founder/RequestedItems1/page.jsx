@@ -18,8 +18,8 @@
             </tr>
           </thead>
           <tbody>
-            {items.length > 0 ? (
-              items.map(({ requestedItem, date, status }, index) => (
+            {items && items?.length > 0 ? (
+              items?.map(({ requestedItem, date, status }, index) => (
                 <tr key={index} className="border-b hover:bg-gray-100">
                   <td className="p-4">{index + 1}</td>
                   <td className="p-4">{requestedItem || "N/A"}</td>
