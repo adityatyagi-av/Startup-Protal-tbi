@@ -51,7 +51,7 @@ const RequestFacilities = ({  id }) => {
         <>
             <button
                 onClick={() => setIsOpen(true)}
-                className="cursor-pointer  px-6 py-2 bg-blue-900 rounded-md text-white"
+                className="px-6 py-2 text-white bg-blue-900 rounded-md cursor-pointer"
             >
                 Request
             </button>
@@ -63,38 +63,38 @@ const RequestFacilities = ({  id }) => {
 
                 <DialogContent className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  w-fit  sm:w-[500px] px-12   rounded-lg bg-white">
                     <DialogHeader>
-                        <DialogTitle className="text-center text-gray-800 font-normal  mr-2  ">
+                        <DialogTitle className="mr-2 font-normal text-center text-gray-800 ">
                             Update the new no of available items
                         </DialogTitle>
                     </DialogHeader>
 
-                    <div className="flex items-center justify-center  mt-2  gap-4">
+                    <div className="flex items-center justify-center gap-4 mt-2">
                         <Button
                             variant="outline"
                             onClick={handleDecrement}
-                            className="h-8 w-8 rounded-full p-0 border border-gray-200"
+                            className="w-8 h-8 p-0 border border-gray-200 rounded-full"
                         >
-                            <Minus className="h-4 w-4" />
+                            <Minus className="w-4 h-4" />
                         </Button>
 
                         <Input
                             type="number"
                             value={value}
                             onChange={handleInputChange}
-                            className=" w-20 text-center text-lg pl-3 no-arrows"
+                            className="w-20 pl-3 text-lg text-center  no-arrows"
                         />
 
 
                         <Button
                             variant="outline"
                             onClick={handleIncrement}
-                            className="h-8 w-8 rounded-full p-0 border border-gray-200"
+                            className="w-8 h-8 p-0 border border-gray-200 rounded-full"
                         >
-                            <Plus className="h-4 w-4" />
+                            <Plus className="w-4 h-4" />
                         </Button>
                     </div>
 
-                    <div className="flex gap-3   justify-center mt-2 w-full">
+                    <div className="flex justify-center w-full gap-3 mt-2">
                         <button className=' px-6 py-2 bg-[#2B3674] text-white rounded-md' onClick={handleSubmit}>
                             Request Item
                         </button>

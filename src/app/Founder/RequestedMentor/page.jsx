@@ -41,10 +41,10 @@ export default function RequestedMentors({ mentors }) {
             )}
           </tbody>
         </table>
-        <div className="p-4 mt-4 bg-gray-100 rounded-lg">
+        {/* <div className="p-4 mt-4 bg-gray-100 rounded-lg">
           <h3 className="text-lg font-semibold">Mentor IDs</h3>
           <p>{mentorIds?.join(", ")}</p>
-        </div>
+        </div> */}
       </div>
     );
 }

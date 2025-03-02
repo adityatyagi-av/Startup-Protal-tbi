@@ -30,7 +30,7 @@ export default function DocumentRequest() {
             <thead className="text-gray-700 bg-gray-100">
               <tr>
                 <th className="p-3">Sr no</th>
-                <th className="p-3">Requested DOC</th>
+                <th className="p-3">Requested Office Space</th>
                 <th className="p-3">Date</th>
                 <th className="p-3">Uploaded doc</th>
                 <th className="flex justify-center p-3">Upload</th>
