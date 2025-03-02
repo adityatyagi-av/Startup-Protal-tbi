@@ -13,7 +13,7 @@ export const AddditionalSidebar = () => {
           className="mr-2 hover:brightness-0 hover:invert"
         />
 
-        <div className="ml-[3%] text-xl"> Activity</div>
+        <div className="ml-[3%] text-xl"> Activity </div>
       </Link>
       <Link
         href="#"
