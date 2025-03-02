@@ -8,7 +8,7 @@ export default function RequestedMentors({ mentors }) {
     }[status] || "text-gray-600");
   
     // Extract mentor IDs from the mentors array
-    const mentorIds = mentors.map(({ mentorId }) => mentorId);
+    const mentorIds = mentors?.map(({ mentorId }) => mentorId);
   
     return (
       <div className="overflow-auto" onClick={() => { console.log(mentors); }}>
@@ -23,8 +23,8 @@ export default function RequestedMentors({ mentors }) {
             </tr>
           </thead>
           <tbody>
-            {mentors && mentors.length > 0 ? (
-              mentors.map(({ mentorName, mentorId, date, status }, index) => (
+            {mentors && mentors?.length > 0 ? (
+              mentors?.map(({ mentorName, mentorId, date, status }, index) => (
                 <tr key={index} className="border-b hover:bg-gray-100">
                   <td className="p-4">{index + 1}</td>
                   <td className="p-4">{mentorId || "N/A"}</td>
@@ -43,7 +43,7 @@ export default function RequestedMentors({ mentors }) {
         </table>
         <div className="p-4 mt-4 bg-gray-100 rounded-lg">
           <h3 className="text-lg font-semibold">Mentor IDs</h3>
-          <p>{mentorIds.join(", ")}</p>
+          <p>{mentorIds?.join(", ")}</p>
         </div>
       </div>
     );
