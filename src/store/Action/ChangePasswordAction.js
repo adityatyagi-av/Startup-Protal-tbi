@@ -7,7 +7,7 @@ export const changePassword = (passwordData) => {
       dispatch({ type: TYPES.Change_Password_LOADING });
 
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_DATABASE_URL}/api/v1/founder/changepassword`,
+        `${process.env.NEXT_PUBLIC_DATABASE_URL}/founder/changepassword`,
         passwordData,
         {
           withCredentials: true, 

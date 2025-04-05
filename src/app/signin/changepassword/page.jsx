@@ -1,24 +1,45 @@
 'use client';
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { sha256 } from 'js-sha256';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { changePassword } from '@/store/Action/ChangePasswordAction'; 
+import TYPES from '@/store/constant'; // To reset state if needed
 
 export default function ChangePassword() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPasswords, setShowPasswords] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const { loading, success, error } = useSelector((state) => state.changePassword || {});
+
+  useEffect(() => {
+    if (success) {
+      toast.success(success);
+      setTimeout(() => {
+        router.push('/Founder/dashboard');
+      }, 2000);
+    }
+
+    if (error) {
+      toast.error(error);
+    }
+
+    return () => {
+      dispatch({ type: TYPES.Change_Password_RESET });
+    };
+  }, [success, error, dispatch, router]);
 
   const togglePasswordVisibility = () => {
     setShowPasswords(!showPasswords);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (newPassword.length < 6) {
@@ -29,33 +50,12 @@ export default function ChangePassword() {
       return toast.error('New passwords do not match');
     }
 
-    try {
-      setLoading(true);
-      const url = process.env.NEXT_PUBLIC_DATABASE_URL;
+    const passwordData = {
+      currentPassword: sha256(currentPassword),
+      newPassword: sha256(newPassword),
+    };
 
-      const response = await axios.post(
-        `${url}/founder/changepassword`,
-        {
-          currentPassword: sha256(currentPassword),
-          newPassword: sha256(newPassword),
-        },
-        { withCredentials: true }
-      );
-
-      if (response.data.statusCode === 200) {
-        toast.success('Password changed successfully');
-        setTimeout(() => {
-          router.push('/Founder/dashboard');
-        }, 2000);
-      } else {
-        toast.error(response.data.message || 'Error changing password');
-      }
-    } catch (error) {
-      const errMsg = error.response?.data?.message || 'Something went wrong';
-      toast.error(errMsg);
-    } finally {
-      setLoading(false);
-    }
+    dispatch(changePassword(passwordData));
   };
 
   return (
@@ -64,11 +64,8 @@ export default function ChangePassword() {
         <h2 className="text-2xl font-bold text-center text-gray-800">Change Password</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">
-              Current Password
-            </label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">Current Password</label>
             <input
               type={showPasswords ? 'text' : 'password'}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -78,11 +75,8 @@ export default function ChangePassword() {
             />
           </div>
 
-       
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">
-              New Password
-            </label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">New Password</label>
             <input
               type={showPasswords ? 'text' : 'password'}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -92,11 +86,8 @@ export default function ChangePassword() {
             />
           </div>
 
-          {/* Confirm Password */}
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">
-              Confirm New Password
-            </label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">Confirm New Password</label>
             <input
               type={showPasswords ? 'text' : 'password'}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -106,7 +97,6 @@ export default function ChangePassword() {
             />
           </div>
 
-         
           <div className="flex items-center">
             <input
               type="checkbox"
@@ -115,16 +105,15 @@ export default function ChangePassword() {
               onChange={togglePasswordVisibility}
               className="mr-2"
             />
-            <label htmlFor="showPasswords" className="text-sm text-gray-600">
-              Show Passwords
-            </label>
+            <label htmlFor="showPasswords" className="text-sm text-gray-600">Show Passwords</label>
           </div>
 
-         
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-2 text-white rounded-lg font-medium ${loading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'} transition`}
+            className={`w-full py-2 text-white rounded-lg font-medium transition ${
+              loading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
+            }`}
           >
             {loading ? (
               <span className="flex items-center justify-center">
@@ -143,3 +132,4 @@ export default function ChangePassword() {
     </div>
   );
 }
+
