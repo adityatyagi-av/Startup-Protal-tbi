@@ -13,7 +13,7 @@ export default function MentoringRequests() {
     dispatch(fetchAllMentors());
   }, [dispatch]);
 
-  const handleRequest = async (mentorId, index) => {
+  const handleRequest = async (mentorId) => {
     setRequesting(prev => ({ ...prev, [mentorId]: true })); 
 
     const response = await dispatch(requestMentor(mentorId)); 
@@ -41,7 +41,7 @@ export default function MentoringRequests() {
               <tr className="text-gray-700 bg-gray-100">
                 <th className="p-3 border">Sr no</th>
                 <th className="p-3 border">Mentor Name</th>
-                <th className="p-3 border">Date</th>
+                {/* <th className="p-3 border">Date</th> */}
                 <th className="p-3 border">Position</th>
                 <th className="p-3 border">Request Mentor</th>
               </tr>
@@ -50,22 +50,22 @@ export default function MentoringRequests() {
               {mentors.map((mentor, index) => (
                 <tr key={mentor.id} className="text-center border-b">
                   <td className="p-3 border">{index + 1}</td>
-                  <td className="p-3 border">{mentor.name}</td>
-                  <td className="p-3 border">{mentor.date}</td>
-                  <td className="p-3 border">{mentor.position}</td>
+                  <td className="p-3 border">{mentor?.name || "Unknown"}</td>
+                  {/* <td className="p-3 border">{mentor?.date ? new Date(mentor.date).toLocaleDateString() : "No date"}</td> */}
+                  <td className="p-3 border">{mentor?.role || "Not specified"}</td>
                   <td className="p-3 border">
                     <button
-                      className={`px-4 py-2 text-white rounded-lg ${
+                      className={`px-4 py-2 text-white rounded-lg transition-all duration-300 ${
                         requesting[mentor.id]
                           ? 'bg-gray-500 cursor-not-allowed' 
-                          : requestedMentors[mentor.id] || mentor.status === 'Requested'
+                          : requestedMentors[mentor.id] || mentor?.status === 'Requested'
                           ? 'bg-green-500' 
                           : 'bg-blue-900 hover:bg-blue-700' 
                       }`}
-                      onClick={() => handleRequest(mentor.id, index)}
-                      disabled={requesting[mentor.id] || requestedMentors[mentor.id] || mentor.status === 'Requested'}
+                      onClick={() => handleRequest(mentor.id)}
+                      disabled={requesting[mentor.id] || requestedMentors[mentor.id] || mentor?.status === 'Requested'}
                     >
-                      {requesting[mentor.id] ? 'Requesting...' : requestedMentors[mentor.id] || mentor.status === 'Requested' ? 'Requested' : 'Request'}
+                      {requesting[mentor.id] ? 'Requesting...' : requestedMentors[mentor.id] || mentor?.status === 'Requested' ? 'Requested' : 'Request'}
                     </button>
                   </td>
                 </tr>
@@ -77,5 +77,3 @@ export default function MentoringRequests() {
     </div>
   );
 }
-
-

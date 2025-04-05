@@ -51,21 +51,21 @@ export default function RequestTable() {
           <>
             {activeTab === "Requested Item" && (
               <RequestedItems
-                items={requests.map(req => ({
-                  name: req.resource?.resourceName || "Unknown",  
-                  date: req.createdAt,
+                items = {requests.filter(req=> req.resource?.resourceName).map(req => ({
+                  name:req.resource.resourceName,
+                  date:req.createdAt,
                   ...req
                 }))}
               />
             )}
             {activeTab === "Requested Office Space" && (
               <RequestedDocs
-                docs={officeSpaceArray.map(doc => ({
-                  name: doc.resource?.resourceName || "Unknown",
-                  date: doc.createdAt,
-                  ...doc
-                }))}
-              />
+              docs={officeSpaceArray.map(doc => ({
+                name: doc?.resource?.resourceName || "Unknown",
+                date: doc?.createdAt || "No date available",
+                ...doc
+              }))} 
+            />
             )}
             {activeTab === "Requested Mentors" && (
               <div>

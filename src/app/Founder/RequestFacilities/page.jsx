@@ -12,23 +12,30 @@ export default function FacilitiesRequest() {
   const { data: facilities, loading, error } = useSelector(state => state.resource);
   const { loading: reqResLoading } = useSelector((state) => state.requestResource);
   const { officeSpaceData = [] } = useSelector((state) => state.requestOfficeSpace || {});
-  
+
   const [isOfficeSpaceRequested, setIsOfficeSpaceRequested] = useState(false);
-  
+
   useEffect(() => {
     dispatch(getResourceDetails());
+
+    // Retrieve the request status from localStorage
+    const storedRequestStatus = localStorage.getItem("officeSpaceRequested");
+    if (storedRequestStatus === "true") {
+      setIsOfficeSpaceRequested(true);
+    }
   }, [dispatch]);
 
   useEffect(() => {
     if (officeSpaceData?.status === "requested" || officeSpaceData?.status === "approved") {
       setIsOfficeSpaceRequested(true);
-    } else {
-      setIsOfficeSpaceRequested(false);
+      localStorage.setItem("officeSpaceRequested", "true"); // Store status in localStorage
     }
   }, [officeSpaceData]);
 
   const handleRequestOfficeSpace = () => {
     dispatch(requestOfficeSpace({ date: new Date().toISOString() }));
+    setIsOfficeSpaceRequested(true);
+    localStorage.setItem("officeSpaceRequested", "true"); // Store request status persistently
   };
 
   const officeSpaceArray = Array.isArray(officeSpaceData) ? officeSpaceData : [officeSpaceData];
@@ -58,12 +65,10 @@ export default function FacilitiesRequest() {
                 <h2 className="text-xl font-semibold text-gray-800">{facility?.resourceName}</h2>
               </div>
 
-              {facility.availability == "available" ? <RequestFacilities id={facility.id} /> : (
-                <>
-                  <p className="px-6 py-2 text-white bg-red-400 rounded-md h-fit">
-                    Not available
-                  </p>
-                </>
+              {facility.availability === "available" ? <RequestFacilities id={facility.id} /> : (
+                <p className="px-6 py-2 text-white bg-red-400 rounded-md h-fit">
+                  Not available
+                </p>
               )}
             </div>
           ))
@@ -71,8 +76,6 @@ export default function FacilitiesRequest() {
           <p className="text-gray-600">No facilities available.</p>
         )}
       </div>
-
-      
     </div>
   );
 }

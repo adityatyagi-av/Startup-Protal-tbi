@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-
+import {changePasswordReducer} from "./Reducer/ChangePasswordReducer";
 import RefreshAccessTokenReducer from './Reducer/refreshAcessToken_Reducer';
 import { getResourceReducer, requestResourceReducer } from './Reducer/Reducergetresource';
 import    getFounderDetalsReducer from './Reducer/Get_Founder_Details_Reducer'
@@ -28,6 +28,7 @@ const rootReducer = combineReducers({
   mentorshipRequests: fetchAllMentorshipRequestsReducer,
   uploadDocument: uploadDocReducer,
   requestedDocs: fetchRequestedDocsReducer,
+  changePassword: changePasswordReducer,
 });
 
 const store = configureStore({

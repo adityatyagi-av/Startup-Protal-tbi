@@ -1,4 +1,5 @@
 'use client';
+import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Requestcards from '@/components/component/dashboardcards'
 import { Sidebar } from '@/components/Sidebar';
@@ -6,9 +7,19 @@ import { Nav } from '@/components/Navbar';
 import { SheetDemo } from '@/components/Sidebar/mobilescreen/sidebarSheet';
 import { StatsBar } from '@/components/Statsbar';
 import toast, { Toaster } from 'react-hot-toast';
+import { AnouncementTable } from '@/components/Tables/Announcement';
 // Load local fonts
-
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 export default function Layout({ children }) {
+
+
+  
+
+
+
+
   return (
     <div className="flex h-full w-full flex-row bg-[#FDFDFD]">
       <div className="no-scrollbar mx-[.5%] hidden h-screen w-[20%] overflow-y-auto rounded-md drop-shadow-md lg:fixed lg:block">
@@ -28,7 +39,23 @@ export default function Layout({ children }) {
             <StatsBar />
 
           </div>
-          
+          {/* <div>
+          <AnouncementTable
+                announcement={announcement}
+                setAnnouncementRefresh={setAnnouncementRefresh}
+                setPageIndex={setAnnouncementPageIndex}
+                overAllCount={totalAnnouncement}
+                pageIndex={announcementPageIndex}
+                totalDatafetched={announData.length}
+                setFilterStatus={setAnnouncementFilterStatus}
+                filterStatus={anouncementFilterStatus}
+                searchParam={announcementSearchParam}
+                serachField={announcementSerachField}
+                setSearchField={setAnnouncementSearchField}
+                setSearchParam={setAnnouncementSearchParam}
+              />
+          </div>
+           */}
           {children}
         </div>
       </div>

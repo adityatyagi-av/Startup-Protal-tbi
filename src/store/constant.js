@@ -77,6 +77,9 @@ const Actions = {
   FETCH_REQUESTED_DOCS_SUCCESS: "FETCH_REQUESTED_DOCS_SUCCESS",
   FETCH_REQUESTED_DOCS_FAILURE: "FETCH_REQUESTED_DOCS_FAILURE",
 
+  Change_Password_LOADING: "Change_Password_LOADING",
+  Change_Password_SUCCESS: "Change_Password_SUCCESS",
+  Change_Password_FAILURE: "Change_Password_FAILURE",
 };
 
 module.exports = Actions;

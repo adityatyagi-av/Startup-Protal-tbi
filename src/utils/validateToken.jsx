@@ -48,7 +48,8 @@ export default function Check() {
 
   useEffect(() => {
     if (!loading) {
-      if (path !== '/signin' && !success) {
+     
+      if (!success && !['/signin', '/signin/changepassword'].includes(path)) {
         router.push('/signin');
       }
       if (path === '/signin' && success) {
