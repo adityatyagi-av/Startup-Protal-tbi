@@ -32,4 +32,7 @@ export const DELETE_CHANGES = '/startupReview/deleteRequestedChanges'
 export const DIRECT_REVIEW ='/startupReview/directReview'
 export const FETCH_EVALUATION_QUESTION = '/program/fetchEvaluationQuestions'
 export const Resource_Detail ='/startup/fetchAllResources'
+export const GET_CHAT_USER = '/chat/serveChatUsers'
+export const GET_CHAT_MESSAGES = '/chat/fetchMessages'
+export const SEARCH_CHAT_USER='/chat/searchUsers'
 

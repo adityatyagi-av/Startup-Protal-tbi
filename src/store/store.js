@@ -12,6 +12,7 @@ import { requestReducer } from "./Reducer/Fetch_All_Request_Reducer";
 import { fetchAllMentorshipRequestsReducer} from './Reducer/Fetch_All_Mentorship_Request_Reducer';
 import {uploadDocReducer} from "./Reducer/Upload_Doc_Reducer";
 import {fetchRequestedDocsReducer} from "./Reducer/Fetch_All_Doc_Reducer";
+import chatReducer from './Reducer/chatReducer';
 
 
 
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   uploadDocument: uploadDocReducer,
   requestedDocs: fetchRequestedDocsReducer,
   changePassword: changePasswordReducer,
+  chatReducer,
 });
 
 const store = configureStore({
