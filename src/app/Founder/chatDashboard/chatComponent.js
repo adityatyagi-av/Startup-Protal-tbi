@@ -59,8 +59,8 @@ export const ChatSidebar = ({ users, activeUserId, setActiveUserId, isMobile, se
   };
 
   return (
-    <div className="w-80 h-full bg-white border-r border-gray-200 flex flex-col" onClick={()=>{console.log(intialActiveUser ,activeUser)}}>
-      <div className=" px-4 flex justify-between items-center">
+    <div className="flex flex-col h-full bg-white border-r border-gray-200 w-80" onClick={()=>{console.log(intialActiveUser ,activeUser)}}>
+      <div className="flex items-center justify-between px-4 ">
         
         {isMobile && (
           <button 
@@ -72,8 +72,8 @@ export const ChatSidebar = ({ users, activeUserId, setActiveUserId, isMobile, se
         )}
       </div>
       
-      <div className="p-4  ">
-        <div className="flex  justify-end flex-col gap-3">
+      <div className="p-4 ">
+        <div className="flex flex-col justify-end gap-3">
        
             <NewChatModal setActiveUserId={setActiveUserId}/>
         </div>

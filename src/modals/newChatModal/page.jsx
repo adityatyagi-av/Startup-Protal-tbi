@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
     Dialog,
     DialogContent,
@@ -19,31 +18,24 @@ const NewChatModal = ({ setActiveUserId }) => {
     const [inputValue, setInputValue, debounceValue] = useDebounce("admi");
     const [selectedUser, setSelectedUser] = useState(null);
     const { searchUser, loading } = useSelector((state) => state.chatReducer);
-
+    
     const dispatch = useDispatch();
-
+    
     const handleAssign = () => {
-
         console.log("Selected user:", selectedUser);
-
         dispatch(updateChatUser(selectedUser))
         setTimeout(() => {
-
             setActiveUserId(selectedUser.id)
             setOpen(false)
         }, 500)
-
-
-
-
-
+        
         setOpen(false);
     };
-
+    
     useEffect(() => {
         dispatch(FetchChatUserQuesry(debounceValue));
     }, [debounceValue]);
-
+    
     // Get user role and avatar based on the new data structure
     const getUserInfo = (user) => {
         if (user.manager) {
@@ -64,20 +56,20 @@ const NewChatModal = ({ setActiveUserId }) => {
         }
         return { role: "user", avatar: null };
     };
-
+    
     // User item component for reuse
     const UserItem = ({ user, selected, onClick }) => {
         const userInfo = getUserInfo(user);
-
+        
         return (
             <div
                 onClick={onClick}
-                className="flex items-center gap-3 py-3 cursor-pointer hover:bg-slate-100 rounded-md px-2"
+                className="flex items-center gap-3 px-2 py-2 rounded-md cursor-pointer hover:bg-slate-100"
             >
                 <img
                     src={userInfo.avatar || "/api/placeholder/40/40"}
                     alt={user.name}
-                    className="w-8 h-8 rounded-full object-cover bg-gray-200"
+                    className="object-cover w-8 h-8 bg-gray-200 rounded-full"
                 />
                 <div className="flex flex-col flex-1">
                     <span className="font-medium">{user.name}</span>
@@ -86,12 +78,12 @@ const NewChatModal = ({ setActiveUserId }) => {
                     </span>
                 </div>
                 {selected && (
-                    <Check className="h-4 w-4 text-blue-600 shrink-0" />
+                    <Check className="w-4 h-4 text-blue-600 shrink-0" />
                 )}
             </div>
         );
     };
-
+    
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -99,13 +91,20 @@ const NewChatModal = ({ setActiveUserId }) => {
                     New Chat
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md bg-white h-[400px] overflow-auto">
-                <DialogHeader>
+            <DialogContent 
+                className="py-3 sm:max-w-md" 
+                style={{
+                    backgroundColor: "white", 
+                    maxHeight: "400px", 
+                    overflow: "visible"
+                }}
+            >
+                <DialogHeader className="pb-1 mb-1">
                     <DialogTitle>Select User to Chat</DialogTitle>
                 </DialogHeader>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2">
                     {selectedUser && (
-                        <div className="border rounded-lg p-2 bg-slate-50">
+                        <div className="p-1 border rounded-lg bg-slate-50">
                             <UserItem
                                 user={selectedUser}
                                 selected={true}
@@ -116,19 +115,27 @@ const NewChatModal = ({ setActiveUserId }) => {
                             />
                         </div>
                     )}
-
+                    
                     <div className="relative">
-                        <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                        <Search className="absolute w-4 h-4 text-gray-400 left-3 top-2" />
                         <input
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             placeholder="Search user..."
-                            className="w-full pl-9 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full py-1 pr-4 border rounded-md pl-9 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-
-                    <ScrollArea className="h-fit max-h-[300px] border rounded-md">
-                        <div className="p-2">
+                    
+                    <div 
+                        className="bg-white border rounded-md" 
+                        style={{ 
+                            boxShadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.1)" 
+                        }}
+                    >
+                        <div 
+                            className="p-1 overflow-y-auto" 
+                            style={{ maxHeight: "280px", backgroundColor: "white" }}
+                        >
                             {searchUser && searchUser
                                 .filter(user =>
                                     user.name.toLowerCase().includes(inputValue.toLowerCase()) &&
@@ -141,26 +148,30 @@ const NewChatModal = ({ setActiveUserId }) => {
                                         selected={false}
                                         onClick={() => {
                                             setSelectedUser(user);
-
                                         }}
                                     />
                                 ))}
-
+                            
                             {(!searchUser || searchUser.length === 0) && !loading && (
-                                <div className="py-4 text-center text-gray-500">
+                                <div className="py-3 text-center text-gray-500">
                                     No users found
                                 </div>
                             )}
-
-
+                            
+                            {loading && (
+                                <div className="py-3 text-center text-gray-500">
+                                    <div className="inline-block w-4 h-4 border-2 rounded-full border-t-blue-500 animate-spin"></div>
+                                    <span className="ml-2">Loading...</span>
+                                </div>
+                            )}
                         </div>
-                    </ScrollArea>
-
+                    </div>
+                    
                     <Button
                         onClick={handleAssign}
                         disabled={!selectedUser}
                         variant="default"
-                        className="w-full bg-[#3b4db4] hover:bg-[#2d3a8a]"
+                        className="w-full mt-1 bg-[#3b4db4] hover:bg-[#2d3a8a]"
                     >
                         {selectedUser ? `Chat with ${selectedUser.name}` : "Select User to chat"}
                     </Button>
