@@ -1,35 +1,18 @@
-import axios from 'axios';
 import TYPES from '../constant';
 import { Founder_Detail } from '../../../APiEndPoints/ApiEndPoints';
+import api from '@/services/api';
 
 export const getFounderDetails = () => {
   return async dispatch => {
     try {
       dispatch({ type: TYPES.Founder_Detail });
 
-      const refreshToken = localStorage.getItem('refreshTokenFounder');
-      const accessToken = localStorage.getItem('accessTokenFounder');
-
-      if (!refreshToken || !accessToken) {
-        console.log('Tokens missing in localStorage');
-        dispatch({
-          type: TYPES.Founder_Detail_FAILURE,
-          payload: 'Tokens not found in localStorage',
-        });
-        return;
-      }
-
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}${Founder_Detail}?schemeName=allSchemes`,
         {
-          headers: {
-            Refresh: refreshToken,
-            Access: accessToken,
-          },
           withCredentials: true,
-        }
+        },
       );
-
       const success = response?.data?.success || false;
 
       if (success) {

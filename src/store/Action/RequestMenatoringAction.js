@@ -1,29 +1,20 @@
 'use client';
-import axios from 'axios';
 import TYPES from '../constant';
+import api from '@/services/api';
 
-export const requestMentorSession = (sessionData) => {
+export const requestMentorSession = sessionData => {
   return async dispatch => {
     dispatch({ type: TYPES.REQUEST_MENTOR_SESSION_LOADING });
-    
+
     try {
-      const accessToken = localStorage.getItem('accessTokenAdmin');
-      
-      if (!accessToken) {
-        throw new Error('Access token not found');
-      }
-      
-      const response = await axios.post(
+      const response = await api.post(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/startup/requestMentorSession`,
         sessionData,
         {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
           withCredentials: true,
-        }
+        },
       );
-      
+
       dispatch({
         type: TYPES.REQUEST_MENTOR_SESSION_SUCCESS,
         payload: response.data,

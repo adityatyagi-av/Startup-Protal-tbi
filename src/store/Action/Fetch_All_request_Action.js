@@ -1,6 +1,5 @@
-import axios from 'axios';
+import api from '@/services/api';
 import TYPES from '../constant';
-import { getHeaders } from '@/utils/authHeaders';
 import toast from 'react-hot-toast';
 
 export const fetchAllRequests = () => {
@@ -8,12 +7,11 @@ export const fetchAllRequests = () => {
     try {
       dispatch({ type: TYPES.FETCH_ALL_REQUESTS_LOADING });
 
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/startup/fetchAllRequests`,
         {
-          headers: getHeaders(),
           withCredentials: true,
-        }
+        },
       );
 
       if (response?.data?.success) {
@@ -23,14 +21,19 @@ export const fetchAllRequests = () => {
         });
       } else {
         dispatch({
-          type:TYPES.FETCH_ALL_REQUESTS_FAILURE,
+          type: TYPES.FETCH_ALL_REQUESTS_FAILURE,
           payload: response?.data?.message || 'Failed to fetch requests.',
         });
         toast.error(response?.data?.message || 'Failed to fetch requests.');
       }
     } catch (error) {
-      const errorMessage = error?.response?.data?.message || 'An error occurred while fetching requests.';
-      dispatch({ type: TYPES.FETCH_ALL_REQUESTS_FAILURE, payload: errorMessage });
+      const errorMessage =
+        error?.response?.data?.message ||
+        'An error occurred while fetching requests.';
+      dispatch({
+        type: TYPES.FETCH_ALL_REQUESTS_FAILURE,
+        payload: errorMessage,
+      });
       toast.error(errorMessage);
     }
   };

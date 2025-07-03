@@ -1,8 +1,7 @@
 "use client";
-import axios from "axios";
 import TYPES from "../constant";
-import { getHeaders } from "@/utils/authHeaders";
 import toast from "react-hot-toast";
+import api from "@/services/api";
 
 export const uploadDoc = (file, docId) => {
   return async (dispatch) => {
@@ -21,14 +20,13 @@ export const uploadDoc = (file, docId) => {
 
       const formData = new FormData();
       formData.append("doc", file);
-      formData.append("docId", docId); // Adding document ID to the form data
+      formData.append("docId", docId); 
 
-      const response = await axios.post(
+      const response = await api.post(
         `${process.env.NEXT_PUBLIC_DATABASE_URL}/startup/uploadDoc`,
         formData,
         {
           headers: {
-            ...getHeaders(),
             "Content-Type": "multipart/form-data",
           },
           withCredentials: true,
@@ -38,7 +36,7 @@ export const uploadDoc = (file, docId) => {
       if (response?.data?.success) {
         dispatch({
           type: TYPES.UPLOAD_DOC_SUCCESS,
-          payload: response.data, // Returning full response data
+          payload: response.data,
         });
         toast.success(response.data.message || "Document uploaded successfully!");
       } else {
