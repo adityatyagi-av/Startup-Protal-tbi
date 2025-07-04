@@ -25,67 +25,69 @@ export default function Profile() {
   }, [data]);
 
   return (
-    <Card className="w-11/12 p-5 mx-auto mt-10 border rounded-lg shadow-lg">
+    <Card className="w-full max-w-3xl px-2 py-4 mx-auto mt-6 border rounded-lg shadow-lg sm:mt-10 sm:p-5">
       <CardHeader>
         <CardTitle>Profile</CardTitle>
       </CardHeader>
-      <CardContent className="flex gap-12">
-        <div className="flex flex-col items-center w-1/4">
-          <div className="relative w-32 h-32 mb-6">
+      <CardContent className="flex flex-col gap-6 md:flex-row md:gap-12">
+        {/* Profile Image */}
+        <div className="flex flex-col items-center w-full md:w-1/3">
+          <div className="relative mb-4 w-28 h-28 sm:w-32 sm:h-32 sm:mb-6">
             <img
               src={profileImage}
               alt="Profile"
               className="object-cover w-full h-full border-4 border-blue-700 rounded-full"
             />
             <label htmlFor="imageUpload" className="absolute bottom-0 right-0 cursor-pointer">
-              <Camera className="w-10 h-10 p-1 text-gray-700 bg-white rounded-full" />
+              <Camera className="w-8 h-8 p-1 text-gray-700 bg-white rounded-full sm:w-10 sm:h-10" />
             </label>
             <input id="imageUpload" type="file" className="hidden" accept="image/*" />
           </div>
         </div>
-        <div className="grid w-3/4 grid-cols-2 gap-6">
-          <div className="w-3/4 col-span-1">
+        {/* Profile Details */}
+        <div className="grid w-full grid-cols-1 gap-4 md:w-2/3 sm:grid-cols-2 sm:gap-6">
+          <div>
             <Label>Full Name</Label>
             <Input className="w-full" value={data?.name || ''} readOnly />
           </div>
-          <div className="w-3/4 col-span-1">
+          <div>
             <Label>Username</Label>
             <Input className="w-full" value={data?.username || ''} readOnly />
           </div>
-          <div className="w-3/4 col-span-1">
+          <div>
             <Label>Email</Label>
             <Input className="w-full" value={data?.email || ''} readOnly />
           </div>
-          <div className="w-3/4 col-span-1">
+          <div>
             <Label>Phone</Label>
             <Input className="w-full" value={data?.phone || ''} readOnly />
           </div>
-          <div className="relative w-3/4 col-span-1">
+          <div className="relative">
             <Label>DOB</Label>
             <Input className="w-full" type="date" value={data?.DOB?.split('T')[0] || ''} readOnly />
-            <Calendar className="absolute w-6 h-6 text-gray-400 right-4 top-9" />
+            <Calendar className="absolute w-5 h-5 text-gray-400 pointer-events-none right-3 top-10" />
           </div>
-          <div className="w-3/4 col-span-1">
+          <div>
             <Label>Postal Address</Label>
             <Input className="w-full" value={data?.postalAddress || ''} readOnly />
           </div>
-          <div className="w-3/4 col-span-1">
+          <div>
             <Label>Education</Label>
             <Input className="w-full" value={data?.education || ''} readOnly />
           </div>
-          <div className="w-3/4 col-span-1">
+          <div>
             <Label>Experience</Label>
             <Input className="w-full" value={data?.experience || ''} readOnly />
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="destructive">Delete</Button>
-        <Button className="bg-blue-900">Edit</Button>
+      <CardFooter className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:gap-0">
+        <Button variant="destructive" className="w-full sm:w-auto">Delete</Button>
+        <Button className="w-full bg-blue-900 sm:w-auto">Edit</Button>
       </CardFooter>
-      <p className="mt-4 text-sm text-center text-gray-500">
-        Created at {new Date(data?.createdAt).toLocaleString() || 'N/A'} <br /> 
-        Updated at {new Date(data?.updatedAt).toLocaleString() || 'N/A'}
+      <p className="mt-4 text-xs text-center text-gray-500 sm:text-sm">
+        Created at {data?.createdAt ? new Date(data?.createdAt).toLocaleString() : 'N/A'} <br /> 
+        Updated at {data?.updatedAt ? new Date(data?.updatedAt).toLocaleString() : 'N/A'}
       </p>
     </Card>
   );

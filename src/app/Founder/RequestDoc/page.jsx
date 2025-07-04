@@ -8,52 +8,52 @@ export default function DocumentRequest() {
   const dispatch = useDispatch();
   const { documents, loading, error } = useSelector((state) => state.requestedDocs);
 
-
   useEffect(() => {
     dispatch(fetchRequestedDocs());
   }, [dispatch]);
 
   return (
-    <div className="flex items-center justify-center w-full h-full p-6 bg-gray-100" onClick={() => { console.log(documents) }}>
-      <div className="w-[85vw] h-[80vh] bg-white shadow-lg rounded-lg p-6 flex flex-col">
-        <h1 className="text-2xl font-semibold text-gray-800">Requested DOC from the TBI</h1>
-        <p className="mb-4 text-gray-500 text-md">Submit the Documents Requested by TBI</p>
+    <div className="flex items-center justify-center w-full min-h-screen px-2 py-4 bg-gray-100">
+      <div className="flex flex-col w-full max-w-6xl p-2 bg-white rounded-lg shadow-lg sm:p-4 md:p-6">
+        <h1 className="text-lg font-semibold text-gray-800 sm:text-xl md:text-2xl">
+          Requested DOC from the TBI
+        </h1>
+        <p className="mb-4 text-sm text-gray-500 sm:text-base">
+          Submit the Documents Requested by TBI
+        </p>
 
+        {loading && <p className="text-sm text-blue-500 sm:text-base">Loading documents...</p>}
+        {error && <p className="text-sm text-red-500 sm:text-base">{error}</p>}
 
-        {loading && <p className="text-blue-500">Loading documents...</p>}
-
-
-        {error && <p className="text-red-500">{error}</p>}
-
-        <div className="w-full overflow-auto max-h-[70%] flex-grow">
-          <table className="w-full text-left border-collapse">
+        <div className="flex-1 w-full overflow-x-auto">
+          <table className="min-w-[600px] w-full text-left border-collapse">
             <thead className="text-gray-700 bg-gray-100">
               <tr>
-                <th className="p-3">Sr no</th>
-                <th className="p-3">Requested Document Title</th>
-                <th className="p-3">Descrption</th>
-                <th className="p-3">Status</th>
-                <th className="flex justify-center p-3">Upload</th>
+                <th className="p-2 text-xs sm:p-3 sm:text-sm">Sr no</th>
+                <th className="p-2 text-xs sm:p-3 sm:text-sm">Requested Document Title</th>
+                <th className="p-2 text-xs sm:p-3 sm:text-sm">Description</th>
+                <th className="p-2 text-xs sm:p-3 sm:text-sm">Status</th>
+                <th className="p-2 text-xs text-center sm:p-3 sm:text-sm">Upload</th>
               </tr>
             </thead>
             <tbody>
               {documents.length > 0 ? (
                 documents.map((doc, index) => (
                   <tr key={index} className="border-b">
-                    <td className="p-3">{index + 1}</td>
-                    <td className="p-3">{doc.docTitle
-                    }</td>
-                    <td className="p-3">{doc.description
-                    }</td>
-                    <td className="p-3">{doc.status == "requested" ? "Not uploaded yet" : "uploaded"}</td>
-                    <td className="flex justify-center p-3">
+                    <td className="p-2 text-xs sm:p-3 sm:text-sm">{index + 1}</td>
+                    <td className="p-2 text-xs sm:p-3 sm:text-sm">{doc.docTitle}</td>
+                    <td className="p-2 text-xs sm:p-3 sm:text-sm">{doc.description}</td>
+                    <td className="p-2 text-xs sm:p-3 sm:text-sm">
+                      {doc.status === "requested" ? "Not uploaded yet" : "Uploaded"}
+                    </td>
+                    <td className="flex justify-center p-2 sm:p-3">
                       <DocsubmitModal id={doc.id} />
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="p-3 text-center text-gray-500">
+                  <td colSpan="5" className="p-2 text-xs text-center text-gray-500 sm:p-3 sm:text-sm">
                     No documents found.
                   </td>
                 </tr>
@@ -65,6 +65,3 @@ export default function DocumentRequest() {
     </div>
   );
 }
-
-
-

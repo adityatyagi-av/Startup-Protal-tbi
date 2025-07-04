@@ -81,7 +81,7 @@ const RequestFacilities = ({  id }) => {
                             type="number"
                             value={value}
                             onChange={handleInputChange}
-                            className="w-20 pl-3 text-lg text-center  no-arrows"
+                            className="w-20 pl-3 text-lg text-center no-arrows"
                         />
 
 
@@ -99,6 +99,7 @@ const RequestFacilities = ({  id }) => {
                             Request Item
                         </button>
                     </div>
+                
                 </DialogContent>
             </Dialog>
         </>

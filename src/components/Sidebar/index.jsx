@@ -61,7 +61,7 @@ export function Sidebar() {
             imgSrc="/inactive.svg"
             hoverImgSrc="/projects.svg"
             label="Requested History"
-            link="/Founder/RequestedItems"
+            link="/Founder/RequestedTable"
           />
            <AdditionSidebarItem
             imgSrc="/inactive.svg"

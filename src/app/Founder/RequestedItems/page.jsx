@@ -1,84 +1,70 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllRequests } from "@/store/Action/Fetch_All_request_Action"; 
-import { fetchAllMentorshipRequests } from "@/store/Action/Fetch_All_Mentorship_Request"; 
-import RequestedItems from "../RequestedItems1/page";
-import RequestedMentors from "../RequestedMentor/page";
-import RequestedDocs from "../RequestedDoc/page";
 
-export default function RequestTable() {
-  const [activeTab, setActiveTab] = useState("Requested Item");
-  const dispatch = useDispatch();
-
-  const { requests = [], loading: requestsLoading, error: requestsError } = useSelector((state) => state.requestData || {});
-  const { mentors = [], loading: mentorshipLoading, error: mentorshipError } = useSelector((state) => state.mentorshipRequests || {});
-  const { officeSpaceData } = useSelector((state) => state.requestOfficeSpace || {}); // Keeping the office space state but not dispatching API call
-
-  useEffect(() => {
-    dispatch(fetchAllRequests()); 
-    dispatch(fetchAllMentorshipRequests()); 
-  }, [dispatch]);
-
-  const officeSpaceArray = Array.isArray(officeSpaceData) ? officeSpaceData : [officeSpaceData];
-
-  const mentorIds = mentors.map(mentor => mentor.mentorId);
-
-  return (
-    <div className="flex items-center justify-center w-full min-h-screen p-6 bg-gray-50">
-      <div className="w-full max-w-6xl p-6 bg-white rounded-lg shadow-lg">
-        <div className="flex justify-center mb-6">
-          {["Requested Item", "Requested Office Space", "Requested Mentors"].map((tab) => (
-            <button
-              key={tab}
-              className={`px-6 py-3 mx-2 text-lg font-bold border-b-4 transition-all duration-300 ${
-                activeTab === tab ? "border-blue-600 text-blue-600" : "border-transparent text-gray-600 hover:text-blue-500"
-              }`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-
-        {(requestsLoading || mentorshipLoading) ? (
-          <div className="flex justify-center py-6">
-            <div className="w-8 h-8 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
-          </div>
-        ) : (requestsError || mentorshipError) ? (
-          <p className="font-medium text-center text-red-500">Error: {requestsError || mentorshipError}</p>
-        ) : (
-          <>
-            {activeTab === "Requested Item" && (
-              <RequestedItems
-                items = {requests.filter(req=> req.resource?.resourceName).map(req => ({
-                  name:req.resource.resourceName,
-                  date:req.createdAt,
-                  ...req
-                }))}
-              />
-            )}
-            {activeTab === "Requested Office Space" && (
-              <RequestedDocs
-              docs={officeSpaceArray.map(doc => ({
-                name: doc?.resource?.resourceName || "Unknown",
-                date: doc?.createdAt || "No date available",
-                ...doc
-              }))} 
-            />
-            )}
-            {activeTab === "Requested Mentors" && (
-              <div>
-                <RequestedMentors mentors={mentors.map(mentor => ({ name: mentor.resource?.resourceName || "Unknown", date: mentor.createdAt, ...mentor }))} />
-                <div className="p-4 mt-4 bg-gray-100 rounded-lg">
-                  <h3 className="text-lg font-semibold">Mentor IDs</h3>
-                  <p>{mentorIds.join(", ")}</p>
-                </div>
-              </div>
-            )}
-          </>
-        )}
-      </div>
+const RequestedItems = ({ items = [] }) => (
+  <div className="w-full overflow-hidden">
+    {/* Desktop Table View */}
+    <div className="hidden md:block">
+      <table className="w-full bg-white border-collapse">
+        <thead>
+          <tr className="bg-gray-50">
+            <th className="px-4 py-3 font-semibold text-left text-gray-700 border-b">Item Name</th>
+            <th className="px-4 py-3 font-semibold text-left text-gray-700 border-b">Date</th>
+            <th className="px-4 py-3 font-semibold text-left text-gray-700 border-b">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Array.isArray(items) &&
+            items.map((item, index) => (
+              <tr key={index} className="hover:bg-gray-50">
+                <td className="px-4 py-3 border-b">{item.name}</td>
+                <td className="px-4 py-3 border-b">
+                  {new Date(item.createdAt).toLocaleDateString()}
+                </td>
+                <td className="px-4 py-3 border-b">
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      item.status === "approved"
+                        ? ""
+                        : item.status === "rejected"
+                        ? ""
+                        : ""
+                    }`}
+                  >
+                    {item.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
-  );
-}
+
+    {/* Mobile Card View */}
+    <div className="space-y-3 md:hidden">
+      {Array.isArray(items) &&
+        items.map((item, index) => (
+          <div key={index} className="p-4 bg-white border rounded-lg shadow-sm">
+            <div className="flex items-start justify-between mb-2">
+              <h3 className="text-sm font-semibold text-gray-900">{item.name}</h3>
+              <span
+                className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  item.status === "approved"
+                    ? "bg-green-100 text-green-800"
+                    : item.status === "rejected"
+                    ? "bg-red-100 text-red-800"
+                    : "bg-yellow-100 text-yellow-800"
+                }`}
+              >
+                {item.status}
+              </span>
+            </div>
+            <p className="text-xs text-gray-500">
+              {new Date(item.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+        ))}
+    </div>
+  </div>
+);
+
+export default RequestedItems;
