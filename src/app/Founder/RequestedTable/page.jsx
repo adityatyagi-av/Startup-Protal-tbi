@@ -47,7 +47,7 @@ export default function RequestTable() {
       <div className="w-full mx-auto max-w-7xl">
         <div className="overflow-hidden bg-white rounded-lg shadow-lg">
           
-          <div className="px-4 py-6 border-b bg-gradient-to-r from-blue-50 to-indigo-50 sm:px-6 lg:px-8">
+          <div className="px-4 py-6 border-b bg-white sm:px-6 lg:px-8">
             <h1 className="text-xl font-bold text-gray-900 sm:text-2xl lg:text-3xl">
               Request Management
             </h1>
