@@ -43,7 +43,7 @@ export default function RequestTable() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen px-2 py-4 bg-gray-50 sm:px-4 lg:px-6">
+    <div className="w-full min-h-screen px-2 py-4 bg-white sm:px-4 lg:px-6">
       <div className="w-full mx-auto max-w-7xl">
         <div className="overflow-hidden bg-white rounded-lg shadow-lg">
           
