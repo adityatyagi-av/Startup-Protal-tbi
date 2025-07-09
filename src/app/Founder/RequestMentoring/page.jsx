@@ -33,7 +33,7 @@ export default function MentoringRequests() {
         ) : error ? (
           <p className="text-base font-semibold text-center text-red-600 md:text-lg">{error}</p>
         ) : (
-          <table className="w-full min-w-[600px] border border-collapse border-gray-300 text-xs md:text-sm">
+          <table className="w-full min-w-[800px] border border-collapse border-gray-300 text-xs md:text-sm">
             <thead>
               <tr className="text-gray-700 bg-gray-100">
                 <th className="p-2 border md:p-3">Sr no</th>

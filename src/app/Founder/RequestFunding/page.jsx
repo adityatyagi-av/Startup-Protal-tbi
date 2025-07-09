@@ -11,50 +11,63 @@ export default function FundingRequest() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen px-2 py-4 bg-gray-100">
-      <div className="w-full max-w-lg p-4 bg-white rounded-lg shadow-lg sm:p-8">
-        <h1 className="mb-2 text-2xl font-semibold text-gray-800 sm:text-3xl">
-          Request Funding
-        </h1>
-        <p className="mb-6 text-sm text-gray-500 sm:text-base">
-          Request funding for your company
-        </p>
-
-        <form onSubmit={handleSubmit}>
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-700 sm:text-base">
-              Enter the amount and reason for the required funding
-            </label>
-            <input
-              type="text"
-              className="w-full p-3 text-base border border-gray-300 rounded-lg sm:p-4 sm:text-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="Enter amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              required
-            />
+    <div className="min-h-screen p-4 bg-gray-100 sm:p-6 lg:p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="w-full overflow-hidden bg-white rounded-lg shadow-lg">
+          {/* Header Section */}
+          <div className="px-6 py-8 border-b border-gray-200 sm:px-8 lg:px-10">
+            <h1 className="mb-2 text-lg font-semibold text-gray-800 sm:text-xl lg:text-2xl">
+              Request Funding
+            </h1>
+            <p className="text-xs text-gray-600 sm:text-sm lg:text-base">
+              Request funding for your company
+            </p>
           </div>
 
-          <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-gray-700 sm:text-base">
-              State the reason for funding
-            </label>
-            <textarea
-              className="w-full h-32 p-3 text-base border border-gray-300 rounded-lg resize-none sm:h-56 sm:p-4 sm:text-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="Explain the reason"
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              required
-            ></textarea>
-          </div>
+          {/* Form Section */}
+          <div className="px-6 py-8 sm:px-8 lg:px-10">
+            <form onSubmit={handleSubmit} className="w-full">
+              {/* Amount Input */}
+              <div className="mb-8">
+                <label className="block mb-3 text-sm font-medium text-gray-700 sm:text-base lg:text-lg">
+                  Enter the amount and reason for the required funding
+                </label>
+                <input
+                  type="text"
+                  className="w-full p-4 text-base transition-all border border-gray-300 rounded-lg sm:p-5 sm:text-lg lg:text-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  placeholder="Enter amount (e.g., $50,000)"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  required
+                />
+              </div>
 
-          <button
-            type="submit"
-            className="w-full py-3 text-base font-medium text-white transition bg-blue-900 rounded-lg sm:py-4 sm:text-lg hover:bg-blue-800"
-          >
-            Send Request
-          </button>
-        </form>
+              {/* Reason Textarea */}
+              <div className="mb-8">
+                <label className="block mb-3 text-sm font-medium text-gray-700 sm:text-base lg:text-lg">
+                  State the reason for funding
+                </label>
+                <textarea
+                  className="w-full h-40 p-4 text-base transition-all border border-gray-300 rounded-lg resize-none sm:h-48 sm:p-5 sm:text-lg lg:h-56 lg:text-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  placeholder="Explain the reason for funding request in detail..."
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  required
+                ></textarea>
+              </div>
+
+              {/* Submit Button */}
+              <div className="w-full">
+                <button
+                  type="submit"
+                  className="w-full py-3 text-sm font-medium text-white transition-all bg-blue-900 rounded-lg sm:py-4 sm:text-base lg:text-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 active:bg-blue-950"
+                >
+                  Send Request
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );

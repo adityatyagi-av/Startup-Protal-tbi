@@ -44,9 +44,9 @@ export default function DocumentRequest() {
             )}
 
             {/* Table Section */}
-            <div className="overflow-x-auto">
-              <div className="inline-block min-w-full align-middle">
-                <table className="min-w-full divide-y divide-gray-200">
+            <div className="w-full overflow-x-auto">
+              <div className="w-full min-w-full align-middle">
+                <table className="w-full min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-3 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase sm:px-6">
@@ -86,7 +86,7 @@ export default function DocumentRequest() {
                           <td className="px-3 py-4 text-sm whitespace-nowrap sm:px-6">
                             <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                               doc.status === "requested" 
-                                ? "bg-white text-yellow-800" 
+                                ? "bg-yellow-100 text-yellow-800" 
                                 : "bg-green-100 text-green-800"
                             }`}>
                               {doc.status === "requested" ? "Pending" : "Uploaded"}
