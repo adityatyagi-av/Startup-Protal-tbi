@@ -62,11 +62,13 @@ const chatReducer = (state = initialState, action) => {
     case TYPES.SEND_MESSAGE_SUCCESS:
       return{
         ...state,
+        messages: [...(state.messages || []), action.payload],
         sendMessage:action.payload
       }
     case TYPES.NEW_MESSAGE_RECEIVED:
       return{
         ...state,
+        messages: [...(state.messages || []), action.payload],
         unreadChatUser:{
           ...state.unreadChatUser,
           [action.payload?.senderId]: true,
@@ -102,11 +104,14 @@ const chatReducer = (state = initialState, action) => {
 
     case TYPES.FETCH_MESSAGES_SUCCESS:
       console.log("payload ", action.payload);
+      const isFirstPage = action.payload.pagination.currentPage === 1;
       return {
         ...state,
         loading: false,
         success: true,
-        messages: action.payload.messages || [],
+        messages: isFirstPage 
+          ? action.payload.messages || []
+          : [...(action.payload.messages || []), ...(state.messages || [])],
         allMsgFlag: action.payload?.messages?.length>0?0:1,
         currPage: action.payload.pagination.currentPage,
       };

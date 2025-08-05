@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 export function Sidebar() {
 
-  
+
 
   return (
     <div className="mx-[1%] flex h-auto flex-col items-start justify-start overflow-x-hidden overflow-y-hidden bg-[#FDFDFD]">
@@ -23,8 +23,8 @@ export function Sidebar() {
       {/* Sidebar items */}
       <div className="mt-[13px] w-full">
         <SidebarItem
-          imgSrc="/projects1.svg" 
-          hoverImgSrc="/projects.svg" 
+          imgSrc="/projects1.svg"
+          hoverImgSrc="/projects.svg"
           label="Founder"
           link="/Founder/dashboard"
         />
@@ -33,15 +33,15 @@ export function Sidebar() {
       {/* Incubation */}
       <div className="mt-[10px] w-full">
         <SidebarItem
-          imgSrc="/projects1.svg" 
-          hoverImgSrc="/projects.svg" 
+          imgSrc="/projects1.svg"
+          hoverImgSrc="/projects.svg"
           label="Dashboard"
           link="/Founder/dashboard"
         />
         <div className="flex flex-col justify-center w-full">
           <AdditionSidebarItem
-            imgSrc="/inactive.svg" 
-            hoverImgSrc="/projects.svg" 
+            imgSrc="/inactive.svg"
+            hoverImgSrc="/projects.svg"
             label=" Request Fcilities"
             link="/Founder/RequestFacilities"
           />
@@ -63,7 +63,7 @@ export function Sidebar() {
             label="Requested History"
             link="/Founder/RequestedTable"
           />
-           <AdditionSidebarItem
+          <AdditionSidebarItem
             imgSrc="/inactive.svg"
             hoverImgSrc="/projects.svg"
             label="Report Mentoring"
@@ -77,14 +77,19 @@ export function Sidebar() {
           />  */}
         </div>
       </div>
+      <SidebarItem
+        imgSrc="/projects1.svg"
+        hoverImgSrc="/projects.svg"
+        label="chatDashboard"
+        link="/Founder/chatDashboard"
+      />
 
-      
-    
 
-      
-      
-    
-      
+
+
+
+
+
     </div>
   );
 }

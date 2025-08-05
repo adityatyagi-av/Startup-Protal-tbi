@@ -15,12 +15,12 @@ import toast from "react-hot-toast";
 
 const NewChatModal = ({ setActiveUserId }) => {
     const [open, setOpen] = useState(false);
-    const [inputValue, setInputValue, debounceValue] = useDebounce("admi");
+    const [inputValue, setInputValue, debounceValue] = useDebounce("");
     const [selectedUser, setSelectedUser] = useState(null);
     const { searchUser, loading } = useSelector((state) => state.chatReducer);
-    
+
     const dispatch = useDispatch();
-    
+
     const handleAssign = () => {
         console.log("Selected user:", selectedUser);
         dispatch(updateChatUser(selectedUser))
@@ -28,14 +28,14 @@ const NewChatModal = ({ setActiveUserId }) => {
             setActiveUserId(selectedUser.id)
             setOpen(false)
         }, 500)
-        
+
         setOpen(false);
     };
-    
-    useEffect(() => {
-        dispatch(FetchChatUserQuesry(debounceValue));
-    }, [debounceValue]);
-    
+
+    // useEffect(() => {
+    //     dispatch(FetchChatUserQuesry(debounceValue));
+    // }, [debounceValue]);
+
     // Get user role and avatar based on the new data structure
     const getUserInfo = (user) => {
         if (user.manager) {
@@ -56,11 +56,11 @@ const NewChatModal = ({ setActiveUserId }) => {
         }
         return { role: "user", avatar: null };
     };
-    
+
     // User item component for reuse
     const UserItem = ({ user, selected, onClick }) => {
         const userInfo = getUserInfo(user);
-        
+
         return (
             <div
                 onClick={onClick}
@@ -83,7 +83,7 @@ const NewChatModal = ({ setActiveUserId }) => {
             </div>
         );
     };
-    
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -91,11 +91,11 @@ const NewChatModal = ({ setActiveUserId }) => {
                     New Chat
                 </Button>
             </DialogTrigger>
-            <DialogContent 
-                className="py-3 sm:max-w-md" 
+            <DialogContent
+                className="py-3 sm:max-w-md"
                 style={{
-                    backgroundColor: "white", 
-                    maxHeight: "400px", 
+                    backgroundColor: "white",
+                    maxHeight: "400px",
                     overflow: "visible"
                 }}
             >
@@ -115,7 +115,7 @@ const NewChatModal = ({ setActiveUserId }) => {
                             />
                         </div>
                     )}
-                    
+
                     <div className="relative">
                         <Search className="absolute w-4 h-4 text-gray-400 left-3 top-2" />
                         <input
@@ -125,15 +125,15 @@ const NewChatModal = ({ setActiveUserId }) => {
                             className="w-full py-1 pr-4 border rounded-md pl-9 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-                    
-                    <div 
-                        className="bg-white border rounded-md" 
-                        style={{ 
-                            boxShadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.1)" 
+
+                    <div
+                        className="bg-white border rounded-md"
+                        style={{
+                            boxShadow: "inset 0 0 0 1px rgba(0, 0, 0, 0.1)"
                         }}
                     >
-                        <div 
-                            className="p-1 overflow-y-auto" 
+                        <div
+                            className="p-1 overflow-y-auto"
                             style={{ maxHeight: "280px", backgroundColor: "white" }}
                         >
                             {searchUser && searchUser
@@ -151,13 +151,13 @@ const NewChatModal = ({ setActiveUserId }) => {
                                         }}
                                     />
                                 ))}
-                            
+
                             {(!searchUser || searchUser.length === 0) && !loading && (
                                 <div className="py-3 text-center text-gray-500">
                                     No users found
                                 </div>
                             )}
-                            
+
                             {loading && (
                                 <div className="py-3 text-center text-gray-500">
                                     <div className="inline-block w-4 h-4 border-2 rounded-full border-t-blue-500 animate-spin"></div>
@@ -166,7 +166,7 @@ const NewChatModal = ({ setActiveUserId }) => {
                             )}
                         </div>
                     </div>
-                    
+
                     <Button
                         onClick={handleAssign}
                         disabled={!selectedUser}

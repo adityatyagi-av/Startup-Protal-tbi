@@ -17,24 +17,24 @@ import { initSocket } from '@/store/webSocketAction/webSocketAction';
 export default function Layout({ children }) {
 
 
-  const { chatToken, flagSocketConnection,
-  } = useSelector((state) => state.chatReducer)
-  const dispatch = useDispatch();
-  let count = 1;
-  useEffect(() => {
-    if (chatToken && !flagSocketConnection) {
-      toast.success("intiatin socket ", count)
-      count++;
+  // const { chatToken, flagSocketConnection,
+  // } = useSelector((state) => state.chatReducer)
+  // const dispatch = useDispatch();
+  // let count = 1;
+  // useEffect(() => {
+  //   if (chatToken && !flagSocketConnection) {
+  //     toast.success("intiatin socket ", count)
+  //     count++;
 
-      dispatch(initSocket(chatToken))
-    }
-    else if (!chatToken) {
-      dispatch(FetchChatUser())
-    }
+  //     dispatch(initSocket(chatToken))
+  //   }
+  //   else if (!chatToken) {
+  //     dispatch(FetchChatUser())
+  //   }
 
 
-  }, [chatToken, flagSocketConnection
-  ])
+  // }, [chatToken, flagSocketConnection
+  // ])
 
 
 
