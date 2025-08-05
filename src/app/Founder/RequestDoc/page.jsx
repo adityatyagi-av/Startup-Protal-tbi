@@ -1,70 +1,75 @@
-"use client";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchRequestedDocs } from "@/store/Action/Fetch_All_Doc_Action";
-import DocsubmitModal from "@/components/component/docsubmit";
+'use client';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRequestedDocs } from '@/store/Action/Fetch_All_Doc_Action';
+import DocsubmitModal from '@/components/component/docsubmit';
+import CommonTable from '@/components/CommonTable/page';
 
 export default function DocumentRequest() {
   const dispatch = useDispatch();
   const { documents, loading, error } = useSelector((state) => state.requestedDocs);
 
-
   useEffect(() => {
     dispatch(fetchRequestedDocs());
   }, [dispatch]);
 
+  const columns = [
+    { header: 'Sr no', accessor: 'index', render: (_, item, i) => i + 1 },
+    { header: 'Document Title', accessor: 'docTitle' },
+    {
+      header: 'Description',
+      accessor: 'description',
+      className: 'hidden md:table-cell',
+    },
+    {
+      header: 'Status',
+      accessor: 'status',
+      render: (value) => (
+        <span
+          className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+            value === 'requested'
+              ? 'bg-yellow-100 text-yellow-800'
+              : 'bg-green-100 text-green-800'
+          }`}
+        >
+          {value === 'requested' ? 'Pending' : 'Uploaded'}
+        </span>
+      ),
+    },
+    {
+      header: 'Upload',
+      accessor: 'id',
+      align: 'center',
+      render: (id) => <DocsubmitModal id={id} />,
+    },
+  ];
+
   return (
-    <div className="flex items-center justify-center w-full h-full p-6 bg-gray-100" onClick={() => { console.log(documents) }}>
-      <div className="w-[85vw] h-[80vh] bg-white shadow-lg rounded-lg p-6 flex flex-col">
-        <h1 className="text-2xl font-semibold text-gray-800">Requested DOC from the TBI</h1>
-        <p className="mb-4 text-gray-500 text-md">Submit the Documents Requested by TBI</p>
+    <div className="min-h-screen p-4 bg-gray-100 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="overflow-hidden bg-white rounded-lg shadow-lg">
+          <div className="px-4 py-6 border-b border-gray-200 sm:px-6 lg:px-8">
+            <h1 className="mb-2 text-xl font-semibold text-gray-800 sm:text-2xl lg:text-3xl">
+              Requested DOC from the TBI
+            </h1>
+            <p className="text-sm text-gray-600 sm:text-base">
+              Submit the Documents Requested by TBI
+            </p>
+          </div>
 
-
-        {loading && <p className="text-blue-500">Loading documents...</p>}
-
-
-        {error && <p className="text-red-500">{error}</p>}
-
-        <div className="w-full overflow-auto max-h-[70%] flex-grow">
-          <table className="w-full text-left border-collapse">
-            <thead className="text-gray-700 bg-gray-100">
-              <tr>
-                <th className="p-3">Sr no</th>
-                <th className="p-3">Requested Document Title</th>
-                <th className="p-3">Descrption</th>
-                <th className="p-3">Status</th>
-                <th className="flex justify-center p-3">Upload</th>
-              </tr>
-            </thead>
-            <tbody>
-              {documents.length > 0 ? (
-                documents.map((doc, index) => (
-                  <tr key={index} className="border-b">
-                    <td className="p-3">{index + 1}</td>
-                    <td className="p-3">{doc.docTitle
-                    }</td>
-                    <td className="p-3">{doc.description
-                    }</td>
-                    <td className="p-3">{doc.status == "requested" ? "Not uploaded yet" : "uploaded"}</td>
-                    <td className="flex justify-center p-3">
-                      <DocsubmitModal id={doc.id} />
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5" className="p-3 text-center text-gray-500">
-                    No documents found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+          <div className="px-4 py-6 sm:px-6 lg:px-8">
+            {loading ? (
+              <div className="text-center text-blue-600">Loading documents...</div>
+            ) : error ? (
+              <div className="p-4 mb-6 border border-red-200 rounded-md bg-red-50">
+                <p className="text-sm text-red-700 sm:text-base">{error}</p>
+              </div>
+            ) : (
+              <CommonTable columns={columns} data={documents} />
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
-
-

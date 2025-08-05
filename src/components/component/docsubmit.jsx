@@ -31,11 +31,10 @@ const DocsubmitModal = ({ id }) => {
       return;
     }
 
-    // Dispatch the upload action with file and ID
     toast.promise(
       dispatch(uploadDoc(file, id)).then(() => {
-        setOpen(false); // Close modal on success
-        setFile(null); // Clear selected file
+        setOpen(false);
+        setFile(null);
       }),
       {
         loading: "Uploading document...",
@@ -52,18 +51,33 @@ const DocsubmitModal = ({ id }) => {
           Upload doc
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-white sm:max-w-[425px] rounded-lg shadow-lg p-6">
+      <DialogContent className="w-full max-w-xs p-4 bg-white rounded-lg shadow-lg sm:max-w-md sm:p-6">
         <DialogHeader>
-          <DialogTitle>Upload Document</DialogTitle>
+          <DialogTitle className="text-lg sm:text-xl">Upload Document</DialogTitle>
         </DialogHeader>
-        <MyDropzonesingle
-          file={file}
-          setFile={setFile}
-          message="Drop the requested file here"
-          allowedTypes={new Set(["application/pdf"])}
-        />
-        <div className="flex justify-end mt-4">
-          <Button onClick={handleFileUpload} disabled={loading}>
+        <div className="w-full">
+          <MyDropzonesingle
+            file={file}
+            setFile={setFile}
+            message="Drop the requested file here"
+            allowedTypes={new Set(["application/pdf"])}
+          />
+        </div>
+        <div className="flex flex-col-reverse gap-2 mt-4 sm:flex-row sm:justify-end">
+          <Button
+            variant="outline"
+            onClick={() => setOpen(false)}
+            className="w-full text-gray-700 border-gray-200 sm:w-auto hover:bg-gray-50"
+            type="button"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleFileUpload}
+            disabled={loading}
+            className="w-full font-medium text-white bg-blue-900 sm:w-auto hover:bg-blue-800"
+            type="button"
+          >
             {loading ? "Uploading..." : "Submit"}
           </Button>
         </div>
@@ -73,18 +87,3 @@ const DocsubmitModal = ({ id }) => {
 };
 
 export default DocsubmitModal;
-
-
-{/* <Button
-variant="outline"
-onClick={() => setOpen(false)}
-className="text-gray-700 border-gray-200 hover:bg-gray-50"
->
-Cancel
-</Button>
-<Button
-onClick={handlePutUnderEvaluation}
-className="font-medium text-white bg-green-500 shadow-sm hover:bg-green-600"
->
-save
-</Button> */}
